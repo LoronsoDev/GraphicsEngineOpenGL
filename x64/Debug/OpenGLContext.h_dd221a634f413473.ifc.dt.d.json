@@ -1,0 +1,12 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\proyectos\\graphicsengineopengl\\src\\engine\\opengl\\openglcontext.h",
+        "ProvidedModule": "",
+        "Includes": [
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\base\\graphicscontext.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
