@@ -1,8 +1,6 @@
 #pragma once
 
-#include <engine/base/Window.h>
-#include <engine/base/GraphicsContext.h>
-#include <engine/base/InputManager.h>
+#include <engine/opengl/OpenGLContext.h>
 
 namespace engine
 {
@@ -22,8 +20,8 @@ namespace engine
 	public:
 		RenderFactory() = default;
 
+		static GraphicsContext* CreateRenderer();
 		static inline RendererBackend GetRendererBackend() { return s_RenderingBackend; }
-		static GraphicsContext* CreateRenderer(Window* window);
 	};
 
 }

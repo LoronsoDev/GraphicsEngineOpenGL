@@ -17,8 +17,15 @@ namespace engine
 
 	SELECT_RENDERER(OPENGL1);
 
-	GraphicsContext* RenderFactory::CreateRenderer(Window* window)
+	GraphicsContext* RenderFactory::CreateRenderer()
 	{
+		switch (s_RenderingBackend)
+		{
+		case RendererBackend::OPENGL1:
+			return new OpenGL1Context();
+		}
+
+		std::cout << "ERROR: Selected renderer isn't supported yet";
 		return nullptr;
 	}
 

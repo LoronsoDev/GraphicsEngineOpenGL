@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\base\Kernel.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.h" />
     <ClCompile Include="src\engine\render\Mesh3D.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\base\Kernel.h" />
     <ClInclude Include="src\engine\base\GraphicsContext.h" />
     <ClInclude Include="src\engine\base\InputManager.h" />
     <ClInclude Include="src\engine\polygon\Mesh3D.h" />

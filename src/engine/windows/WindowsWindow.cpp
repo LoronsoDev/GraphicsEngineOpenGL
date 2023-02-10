@@ -56,8 +56,8 @@ void WindowsWindow::Init(const WindowProps& props)
 	glfwSetWindowUserPointer(m_Window, &m_WindowProperties); //Adds a user pointer that is returned for every callback.
 
 	//OpenGL Context
-	m_Context = RenderFactory::CreateRenderer((Window*) m_Window);
-	m_Context->Init();
+	m_Context = RenderFactory::CreateRenderer();
+	m_Context->Init((Window*) m_Window);
 
 	assert(m_Window); // Window or OpenGL context creation failed
 }
