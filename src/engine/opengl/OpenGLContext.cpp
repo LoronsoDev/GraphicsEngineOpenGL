@@ -41,7 +41,7 @@ void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 
 	for (auto obj : *objs)
 	{
-		auto vertices = obj->GetMesh()->GetVertList();
+		const auto vertices = obj->GetMesh()->GetVertList();
 
 		for (Vertex v : *vertices)
 		{

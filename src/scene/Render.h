@@ -8,7 +8,7 @@ public:
 	virtual void Init() = 0;
 	virtual void SetupObject(Object* obj) = 0;
 	virtual void RemoveObject(Object* obj) = 0;
-	virtual void DrawObjects(std::vector<Object*> *objs) = 0;
+	virtual void DrawObjects(std::vector<Object*>* objs) = 0;
 	int GetWidth();
 	int GetHeight();
 	inline void SetWidth(int w) { m_Width = w; };
@@ -21,4 +21,3 @@ private:
 
 	bool m_IsClosed = false;
 };
-

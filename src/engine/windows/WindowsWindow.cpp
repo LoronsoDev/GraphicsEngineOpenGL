@@ -6,12 +6,12 @@ bool WindowsWindow::s_GLFWInitialized = false;
 
 Window* Window::Create(const WindowProps& props)
 {
-    return new WindowsWindow(props);
+	return new WindowsWindow(props);
 }
 
 WindowsWindow::WindowsWindow(const WindowProps& props)
 {
-    Init(props);
+	Init(props);
 }
 
 WindowsWindow::~WindowsWindow()
@@ -25,12 +25,11 @@ void WindowsWindow::Shutdown()
 	props.isRunning = false;
 
 	glfwTerminate();
-    glfwDestroyWindow(m_Window);
+	glfwDestroyWindow(m_Window);
 }
 
 void WindowsWindow::Init(const WindowProps& props)
 {
-
 	if (!s_GLFWInitialized)
 	{
 		int success = glfwInit();
@@ -48,7 +47,7 @@ void WindowsWindow::Init(const WindowProps& props)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 #endif
 
-	m_Window = glfwCreateWindow((int) props.Width, (int) props.Height, props.Title.c_str(), nullptr, nullptr);
+	m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 	SetVSync(props.VSync);
 	SetupInputCallbacks();
 	std::cout << "\n GLFW WINDOW CREATED SUCCESFULLY \n";
@@ -57,7 +56,7 @@ void WindowsWindow::Init(const WindowProps& props)
 
 	//OpenGL Context
 	m_Context = RenderFactory::CreateRenderer();
-	m_Context->Init((Window*) m_Window);
+	m_Context->Init((Window*)m_Window);
 
 	assert(m_Window); // Window or OpenGL context creation failed
 }
@@ -69,14 +68,14 @@ void engine::WindowsWindow::SetupInputCallbacks()
 	m_InputManager->Init();
 
 	m_WindowProperties.InputManager = m_InputManager;
-	
+
 	glfwSetKeyCallback(m_Window,
 		[](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
 			props.InputManager->keybEvent[key] = action;
 		}
-		);
+	);
 
 	glfwSetMouseButtonCallback(m_Window,
 		[](GLFWwindow* window, int button, int action, int mods)
@@ -104,8 +103,8 @@ void engine::WindowsWindow::SetupInputCallbacks()
 		{
 			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
 
-			props.InputManager->scrollOffsetX = (float) xOffset;
-			props.InputManager->scrollOffsetY = (float) yOffset;
+			props.InputManager->scrollOffsetX = (float)xOffset;
+			props.InputManager->scrollOffsetY = (float)yOffset;
 		}
 	);
 
@@ -126,7 +125,7 @@ void WindowsWindow::OnUpdate()
 
 void WindowsWindow::SetVSync(bool enabled)
 {
-	glfwSwapInterval((int) enabled);
+	glfwSwapInterval((int)enabled);
 
 	m_WindowProperties.VSync = enabled;
 }

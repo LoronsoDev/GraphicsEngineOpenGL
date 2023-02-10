@@ -6,11 +6,10 @@
 int main(int chargc, char** argv)
 {
 	engine::Window* window = engine::Window::Create();
-	
+
 	//Main update loop.
 	while (true)
 	{
 		window->OnUpdate();
 	}
-
 }

@@ -2,10 +2,13 @@
 
 #include <engine/opengl/OpenGLContext.h>
 
+#define SELECT_RENDERER(BACKEND) engine::RenderFactory::s_RenderingBackend = engine::RenderFactory::##BACKEND
+
 namespace engine
 {
 	static class RenderFactory
 	{
+	public:
 		enum RendererBackend
 		{
 			OPENGL1,
@@ -17,11 +20,9 @@ namespace engine
 
 		static RendererBackend s_RenderingBackend;
 
-	public:
 		RenderFactory() = default;
 
 		static GraphicsContext* CreateRenderer();
 		static inline RendererBackend GetRendererBackend() { return s_RenderingBackend; }
 	};
-
 }
