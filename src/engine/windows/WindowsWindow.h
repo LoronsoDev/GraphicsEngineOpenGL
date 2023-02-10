@@ -33,5 +33,4 @@ namespace engine
 		GraphicsContext* m_Context;
 		GLFWwindow* m_Window;
 	};
-
 }

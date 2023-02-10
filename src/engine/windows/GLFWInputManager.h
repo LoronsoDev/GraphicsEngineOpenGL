@@ -22,5 +22,3 @@ namespace engine
 		virtual int GetKeyState(int key) override;
 	};
 }
-
-

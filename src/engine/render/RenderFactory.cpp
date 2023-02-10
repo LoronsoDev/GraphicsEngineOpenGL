@@ -2,20 +2,7 @@
 
 namespace engine
 {
-	#define SELECT_RENDERER(BACKEND) RenderFactory::RendererBackend RenderFactory::s_RenderingBackend = RenderFactory::RendererBackend::##BACKEND
-
-
-	/* BACKENDS...
-
-		OPENGL1,
-		OPENGL4,
-		VULKAN,
-		DIRECT3D,
-		UNDEFINED
-
-	*/
-
-	SELECT_RENDERER(OPENGL1);
+	engine::RenderFactory::RendererBackend engine::RenderFactory::s_RenderingBackend = RenderFactory::RendererBackend::OPENGL1;
 
 	GraphicsContext* RenderFactory::CreateRenderer()
 	{
@@ -25,8 +12,9 @@ namespace engine
 			return new OpenGL1Context();
 		}
 
-		std::cout << "ERROR: Selected renderer isn't supported yet";
+		std::cout << "ERROR: Selected renderer isn't supported yet. Can't create graphics context. \n";
+		assert(false);
+
 		return nullptr;
 	}
-
 }

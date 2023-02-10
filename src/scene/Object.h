@@ -5,7 +5,6 @@
 
 #include <Engine_Core.h>
 
-
 enum ObjectType
 {
 	TRIANGLE
@@ -24,6 +23,3 @@ private:
 	Mesh3D* m_Mesh;
 	ObjectType m_Type;
 };
-
-
-

@@ -28,7 +28,6 @@ namespace engine
 
 		WindowProps m_WindowProperties;
 
-
 	public:
 		virtual ~Window() {};
 

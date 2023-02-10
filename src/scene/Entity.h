@@ -21,7 +21,7 @@ public:
 	inline void SetScale(glm::vec4 scale) { m_Scale = scale; }
 	inline void SetModelMatrix(glm::mat4 modelMatrix) { m_ModelMatrix = modelMatrix; }
 	void ComputeModelMatrix();
-	virtual void Step(double deltaTime)=0;
+	virtual void Step(double deltaTime) = 0;
 
 private:
 	glm::vec4 m_Pos;
@@ -29,5 +29,3 @@ private:
 	glm::vec4 m_Scale;
 	glm::mat4 m_ModelMatrix;
 };
-
-

@@ -28,7 +28,6 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-
 //OLD COMMON.H
 /*
 
@@ -51,6 +50,5 @@
 #include <glm/gtc/random.hpp>
 #include <iostream>
 #include <fstream>
-
 
 */
