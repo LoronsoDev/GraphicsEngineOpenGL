@@ -137,26 +137,33 @@
   <ItemGroup>
     <ClCompile Include="src\engine\opengl\OpenGLContext.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.h" />
+    <ClCompile Include="src\engine\polygon\Mesh3D.cpp" />
+    <ClCompile Include="src\engine\windows\GLFWInputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\old\Entity.cpp" />
     <ClCompile Include="src\old\GL1Render.cpp" />
-    <ClCompile Include="src\old\mesh3D.cpp" />
-    <ClCompile Include="src\old\Object.cpp" />
-    <ClCompile Include="src\old\Object3D.cpp" />
     <ClCompile Include="src\old\Render.cpp" />
     <ClCompile Include="src\engine\windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\scene\Entity.cpp" />
+    <ClCompile Include="src\scene\Object.cpp" />
+    <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\base\GraphicsContext.h" />
+    <ClInclude Include="src\engine\base\InputManager.h" />
+    <ClInclude Include="src\engine\polygon\Mesh3D.h" />
+    <ClInclude Include="src\engine\polygon\PolygonUtils.h" />
+    <ClInclude Include="src\engine\windows\GLFWInputManager.h" />
     <ClInclude Include="src\Engine_Core.h" />
     <ClInclude Include="src\engine\base\Window.h" />
     <ClInclude Include="src\old\Entity.h" />
     <ClInclude Include="src\old\GL1Render.h" />
     <ClInclude Include="src\old\mesh3D.h" />
-    <ClInclude Include="src\old\Object.h" />
     <ClInclude Include="src\old\Object3D.h" />
     <ClInclude Include="src\old\Render.h" />
     <ClInclude Include="src\engine\windows\WindowsWindow.h" />
+    <ClInclude Include="src\scene\Entity.h" />
+    <ClInclude Include="src\scene\Object.h" />
+    <ClInclude Include="src\scene\Object3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
