@@ -5,10 +5,10 @@
 
 namespace engine
 {
-	class OpenGLContext : public GraphicsContext
+	class OpenGL1Context : public GraphicsContext
 	{
 	public:
-		OpenGLContext(GLFWwindow* window) : m_ContextWindow(window) {}
+		OpenGL1Context(GLFWwindow* window) : m_ContextWindow(window) {}
 
 		// Inherited via GraphicsContext
 		virtual void Init() override;
@@ -16,5 +16,10 @@ namespace engine
 
 	private:
 		GLFWwindow* m_ContextWindow;
+
+		// Inherited via GraphicsContext
+		virtual void SetupObject(Object* obj) override;
+		virtual void RemoveObject(Object* obj) override;
+		virtual void DrawObjects(std::vector<Object*>* objs) override;
 	};
 }

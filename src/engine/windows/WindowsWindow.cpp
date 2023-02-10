@@ -1,4 +1,4 @@
-#include "WindowsWindow.h"
+#include <engine/windows/WindowsWindow.h>
 
 using namespace engine;
 
@@ -21,6 +21,9 @@ WindowsWindow::~WindowsWindow()
 
 void WindowsWindow::Shutdown()
 {
+	auto props = *(WindowProps*)glfwGetWindowUserPointer(m_Window);
+	props.isRunning = false;
+
 	glfwTerminate();
     glfwDestroyWindow(m_Window);
 }
@@ -53,7 +56,7 @@ void WindowsWindow::Init(const WindowProps& props)
 	glfwSetWindowUserPointer(m_Window, &m_WindowProperties); //Adds a user pointer that is returned for every callback.
 
 	//OpenGL Context
-	m_Context = new OpenGLContext(m_Window);
+	m_Context = RenderFactory::CreateRenderer((Window*) m_Window);
 	m_Context->Init();
 
 	assert(m_Window); // Window or OpenGL context creation failed
@@ -66,7 +69,7 @@ void engine::WindowsWindow::SetupInputCallbacks()
 	m_InputManager->Init();
 
 	m_WindowProperties.InputManager = m_InputManager;
-
+	
 	glfwSetKeyCallback(m_Window,
 		[](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{

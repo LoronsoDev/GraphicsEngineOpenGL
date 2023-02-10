@@ -3,6 +3,7 @@
 #define GLAD_ONLY_HEADERS
 #include <Engine_Core.h>
 #include <engine/base/InputManager.h>
+#include <engine/render/RenderFactory.h>
 
 namespace engine
 {
@@ -16,6 +17,7 @@ namespace engine
 			std::string Title;
 
 			bool VSync = true;
+			bool isRunning = true;
 
 			InputManager* InputManager = nullptr;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <scene/Entity.h>
-#include "engine/polygon/Mesh3D.h"
+#include <engine/render/Mesh3D.h>
 
 #include <Engine_Core.h>
 
