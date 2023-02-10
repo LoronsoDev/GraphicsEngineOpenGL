@@ -9,6 +9,7 @@
 #include <sstream>
 #include <vector>
 #include <stdint.h>
+#include <unordered_map>
 
 //custom
 #include <glm/glm.hpp>
