@@ -5,6 +5,7 @@
         "ProvidedModule": "",
         "Includes": [
             "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine\\base\\graphicscontext.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine\\base\\window.h",
             "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine_core.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.34.31933\\include\\string",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.34.31933\\include\\yvals_core.h",
@@ -304,7 +305,13 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.22000.0\\shared\\winapifamily.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.22000.0\\shared\\winpackagefamily.h",
             "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\libs\\glad\\inc\\glad\\gl.h",
-            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\libs\\glfw\\inc\\glfw\\glfw3.h"
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\libs\\glfw\\inc\\glfw\\glfw3.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine\\base\\inputmanager.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine\\render\\renderfactory.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\scene\\object.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\scene\\entity.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine\\render\\mesh3d.h",
+            "c:\\users\\loren\\documents\\proyectos\\graphicsengineopengl\\src\\engine\\render\\polygonutils.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

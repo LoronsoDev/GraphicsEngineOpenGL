@@ -1,6 +1,7 @@
 #pragma once
 
 #include <engine/base/Window.h>
+#include <engine/base/GraphicsContext.h>
 #include <engine/opengl/OpenGLContext.h>
 #include <engine/windows/GLFWInputManager.h>
 
@@ -27,7 +28,7 @@ namespace engine
 		void SetupInputCallbacks();
 
 	private:
-		GLFWInputManager* m_InputManager;
+		InputManager* m_InputManager;
 		GraphicsContext* m_Context;
 		GLFWwindow* m_Window;
 	};
