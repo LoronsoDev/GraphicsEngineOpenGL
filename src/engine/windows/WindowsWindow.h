@@ -4,6 +4,7 @@
 #include <engine/base/GraphicsContext.h>
 #include <engine/opengl/OpenGLContext.h>
 #include <engine/windows/GLFWInputManager.h>
+#include <engine/render/RenderFactory.h>
 
 namespace engine
 {

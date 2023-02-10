@@ -1,14 +1,17 @@
 #include "OpenGLContext.h"
 
-void engine::OpenGL1Context::Init()
+void engine::OpenGL1Context::Init(Window* window)
 {
+	m_ContextWindow = (GLFWwindow*)window;
+
 	glfwMakeContextCurrent(m_ContextWindow);
 	gladLoadGL(glfwGetProcAddress);
 
 	std::cout << " OPENGL CONTEXT CREATED SUCCESFULLY \n";
+	std::cout << " CONTEXT RUNNING OPENGL1 \n";
 	std::cout << "    Vendor    | " << reinterpret_cast<const char*> (glGetString(GL_VENDOR)) << "\n";
 	std::cout << "     GPU      | " << reinterpret_cast<const char*> (glGetString(GL_RENDERER)) << "\n";
-	std::cout << "    Driver    | " << reinterpret_cast<const char*> (glGetString(GL_VERSION)) << "\n";
+	std::cout << "  GL VERSION  | " << reinterpret_cast<const char*> (glGetString(GL_VERSION)) << "\n";
 
 	// 3.30 OpenGL version. Not used for now.
 	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -51,6 +54,21 @@ void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 	}
 
 	glEnd();
+}
+
+bool engine::OpenGL1Context::IsClosed()
+{
+	return false;
+}
+
+int engine::OpenGL1Context::GetWidth()
+{
+	return 0;
+}
+
+int engine::OpenGL1Context::GetHeight()
+{
+	return 0;
 }
 
 //void GL1Render::DrawObjects(const std::vector<Object*>* objects)

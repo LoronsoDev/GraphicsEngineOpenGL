@@ -1,8 +1,8 @@
 ﻿  Scanning sources for module dependencies...
-  OpenGLContext.h
-  Compiling...
-  OpenGLContext.h
-C:\Users\loren\Documents\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(26,25): error C2143: syntax error: missing ';' before '*'
-C:\Users\loren\Documents\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(26,25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Users\loren\Documents\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(26,57): error C2238: unexpected token(s) preceding ';'
-C:\Users\loren\Documents\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(27,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
+  Kernel.cpp
+  RenderFactory.cpp
+C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(25,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
+C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.cpp(18,2): warning C5103: pasting '::' and 'OPENGL1' does not result in a valid preprocessing token
+C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.cpp(5): message : in expansion of macro 'SELECT_RENDERER'
+  Generating Code...
+  GraphicsEngineOpenGL.vcxproj -> C:\Proyectos\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe

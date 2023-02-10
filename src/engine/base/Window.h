@@ -3,7 +3,6 @@
 #define GLAD_ONLY_HEADERS
 #include <Engine_Core.h>
 #include <engine/base/InputManager.h>
-#include <engine/render/RenderFactory.h>
 
 namespace engine
 {
@@ -32,8 +31,6 @@ namespace engine
 
 	public:
 		virtual ~Window() {};
-
-
 
 		virtual void OnUpdate() = 0;
 		virtual void SetVSync(bool enabled) = 0;
