@@ -140,7 +140,11 @@
     <ClCompile Include="src\engine\polygon\Mesh3D.cpp" />
     <ClCompile Include="src\engine\windows\GLFWInputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\old\Entity.cpp" />
     <ClCompile Include="src\old\GL1Render.cpp" />
+    <ClCompile Include="src\old\mesh3D.cpp" />
+    <ClCompile Include="src\old\Object.cpp" />
+    <ClCompile Include="src\old\Object3D.cpp" />
     <ClCompile Include="src\old\Render.cpp" />
     <ClCompile Include="src\engine\windows\WindowsWindow.cpp" />
     <ClCompile Include="src\scene\Entity.cpp" />
@@ -158,6 +162,7 @@
     <ClInclude Include="src\old\Entity.h" />
     <ClInclude Include="src\old\GL1Render.h" />
     <ClInclude Include="src\old\mesh3D.h" />
+    <ClInclude Include="src\old\Object.h" />
     <ClInclude Include="src\old\Object3D.h" />
     <ClInclude Include="src\old\Render.h" />
     <ClInclude Include="src\engine\windows\WindowsWindow.h" />

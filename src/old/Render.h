@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Object.h"
+#include <scene/Object.h>
+
 class Render
 {
 public:
