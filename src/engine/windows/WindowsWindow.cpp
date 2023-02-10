@@ -50,6 +50,7 @@ void WindowsWindow::Init(const WindowProps& props)
 	SetupInputCallbacks();
 	std::cout << "\n GLFW WINDOW CREATED SUCCESFULLY \n";
 
+	glfwSetWindowUserPointer(m_Window, &m_WindowProperties); //Adds a user pointer that is returned for every callback.
 
 	//OpenGL Context
 	m_Context = new OpenGLContext(m_Window);
@@ -58,9 +59,60 @@ void WindowsWindow::Init(const WindowProps& props)
 	assert(m_Window); // Window or OpenGL context creation failed
 }
 
+//Setup all GLFW input callbacks here.
 void engine::WindowsWindow::SetupInputCallbacks()
 {
-	//Setup all input callbacks here.
+	m_InputManager = new GLFWInputManager();
+	m_InputManager->Init();
+
+	m_WindowProperties.InputManager = m_InputManager;
+
+	glfwSetKeyCallback(m_Window,
+		[](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
+			props.InputManager->keybEvent[key] = action;
+		}
+		);
+
+	glfwSetMouseButtonCallback(m_Window,
+		[](GLFWwindow* window, int button, int action, int mods)
+		{
+			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
+			props.InputManager->keybEvent[button] = action;
+		}
+	);
+
+	glfwSetCursorPosCallback(m_Window,
+		[](GLFWwindow* window, double x, double y)
+		{
+			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
+
+			props.InputManager->lastMousePosX = (int)props.InputManager->mousePosX;
+			props.InputManager->lastMousePosY = (int)props.InputManager->mousePosY;
+
+			props.InputManager->mousePosX = (int)x;
+			props.InputManager->mousePosY = (int)y;
+		}
+	);
+
+	glfwSetScrollCallback(m_Window,
+		[](GLFWwindow* window, double xOffset, double yOffset)
+		{
+			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
+
+			props.InputManager->scrollOffsetX = (float) xOffset;
+			props.InputManager->scrollOffsetY = (float) yOffset;
+		}
+	);
+
+	glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
+
+			props.Width = width;
+			props.Height = height;
+		});
 }
 
 void WindowsWindow::OnUpdate()
