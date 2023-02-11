@@ -21,7 +21,7 @@ WindowsWindow::~WindowsWindow()
 
 void WindowsWindow::Shutdown()
 {
-	auto props = *(WindowProps*)glfwGetWindowUserPointer(m_Window);
+	auto props = *static_cast<WindowProps*>(glfwGetWindowUserPointer(m_Window));
 	props.isRunning = false;
 
 	glfwTerminate();
@@ -32,7 +32,7 @@ void WindowsWindow::Init(const WindowProps& props)
 {
 	if (!s_GLFWInitialized)
 	{
-		int success = glfwInit();
+		const int success = glfwInit();
 
 		assert(success);
 		//Only reaches here if it's initialized.
@@ -47,16 +47,18 @@ void WindowsWindow::Init(const WindowProps& props)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 #endif
 
-	m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
+	m_Window = glfwCreateWindow(static_cast<int>(props.Width), static_cast<int>(props.Height), props.Title.c_str(), nullptr, nullptr);
 	SetVSync(props.VSync);
 	SetupInputCallbacks();
 	std::cout << "\n GLFW WINDOW CREATED SUCCESFULLY \n";
 
 	glfwSetWindowUserPointer(m_Window, &m_WindowProperties); //Adds a user pointer that is returned for every callback.
 
-	//OpenGL Context
+	//Context is created by the Kernel now.
 	m_Context = RenderFactory::CreateRenderer();
-	m_Context->Init((Window*)m_Window);
+	m_Context->Init(reinterpret_cast<Window*>(m_Window));
+
+	m_WindowProperties.GraphicsContext = m_Context;
 
 	assert(m_Window); // Window or OpenGL context creation failed
 }
@@ -120,7 +122,9 @@ void engine::WindowsWindow::SetupInputCallbacks()
 void WindowsWindow::OnUpdate()
 {
 	glfwPollEvents();
-	m_Context->SwapBuffers();
+
+	if(glfwWindowShouldClose(m_Window))
+		m_WindowProperties.isRunning = false;
 }
 
 void WindowsWindow::SetVSync(bool enabled)

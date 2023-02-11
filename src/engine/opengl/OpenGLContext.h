@@ -30,7 +30,5 @@ namespace engine
 		virtual bool IsClosed() override;
 		virtual int GetWidth() override;
 		virtual int GetHeight() override;
-
-		~OpenGL1Context() {}
 	};
 }

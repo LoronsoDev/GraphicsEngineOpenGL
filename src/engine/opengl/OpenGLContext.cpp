@@ -2,7 +2,7 @@
 
 void engine::OpenGL1Context::Init(Window* window)
 {
-	m_ContextWindow = (GLFWwindow*)window;
+	m_ContextWindow = reinterpret_cast<GLFWwindow*>(window);
 
 	glfwMakeContextCurrent(m_ContextWindow);
 	gladLoadGL(glfwGetProcAddress);
@@ -35,9 +35,9 @@ void engine::OpenGL1Context::RemoveObject(Object* obj)
 
 void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 {
-	glm::vec4 color(1.f, 1.f, 1.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	glBegin(GL_TRIANGLES);
-	glColor3f(color.r, color.g, color.b);
 
 	for (auto obj : *objs)
 	{
@@ -48,12 +48,14 @@ void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 			v.VertexPos = obj->GetModelMatrix() * v.VertexPos;
 
 			auto color = obj->GetMesh()->GetMeshColor();
-			glColor3f(color.x, color.y, color.z);
+			glColor3f(v.VertexPos.x, v.VertexPos.y, v.VertexPos.z); //Purposefully inputted vertex position.
 			glVertex3f(v.VertexPos.x, v.VertexPos.y, v.VertexPos.z);
 		}
 	}
 
 	glEnd();
+
+	SwapBuffers();
 }
 
 bool engine::OpenGL1Context::IsClosed()

@@ -7,6 +7,7 @@
 class Entity
 {
 public:
+	virtual ~Entity() = default;
 	Entity();
 
 	/* GETTERS */
