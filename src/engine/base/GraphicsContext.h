@@ -18,6 +18,8 @@ namespace engine
 		inline virtual bool IsClosed() = 0;
 		inline virtual int GetWidth() = 0;
 		inline virtual int GetHeight() = 0;
+
+		virtual ~GraphicsContext() {};
 	private:
 		Window* m_RenderWindow = nullptr;
 	};

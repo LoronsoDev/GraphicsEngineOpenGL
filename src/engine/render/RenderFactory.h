@@ -23,6 +23,6 @@ namespace engine
 		RenderFactory() = default;
 
 		static GraphicsContext* CreateRenderer();
-		static inline RendererBackend GetRendererBackend() { return s_RenderingBackend; }
+		static RendererBackend GetRendererBackend() { return s_RenderingBackend; }
 	};
 }

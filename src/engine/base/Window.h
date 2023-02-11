@@ -4,8 +4,11 @@
 #include <Engine_Core.h>
 #include <engine/base/InputManager.h>
 
+
 namespace engine
 {
+class GraphicsContext;
+
 	//Generic class for any implementation of Window.
 	class Window
 	{
@@ -19,6 +22,7 @@ namespace engine
 			bool isRunning = true;
 
 			InputManager* InputManager = nullptr;
+			GraphicsContext* GraphicsContext = nullptr;
 
 			WindowProps(const std::string& title = "3D ENGINE BASE WINDOW",
 				unsigned int w = 1280,
@@ -40,6 +44,7 @@ namespace engine
 
 		/// <returns> Native implementation of Window (e.g. GLFWwindow* in the case of GLFW) </returns>
 		inline virtual void* GetNativeWindow() const = 0;
+		virtual void Shutdown() = 0;
 
 		static Window* Create(const WindowProps& props = WindowProps());
 	};

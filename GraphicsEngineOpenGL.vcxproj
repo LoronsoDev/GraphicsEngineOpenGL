@@ -142,7 +142,6 @@
     <ClCompile Include="src\engine\render\RenderFactory.cpp" />
     <ClCompile Include="src\engine\windows\GLFWInputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\scene\Render.cpp" />
     <ClCompile Include="src\engine\windows\WindowsWindow.cpp" />
     <ClCompile Include="src\scene\Entity.cpp" />
     <ClCompile Include="src\scene\Object.cpp" />
@@ -162,7 +161,6 @@
     <ClInclude Include="src\engine\base\Window.h" />
     <ClInclude Include="src\old\Entity.h" />
     <ClInclude Include="src\old\Object3D.h" />
-    <ClInclude Include="src\scene\Render.h" />
     <ClInclude Include="src\engine\windows\WindowsWindow.h" />
     <ClInclude Include="src\scene\Entity.h" />
     <ClInclude Include="src\scene\Object.h" />

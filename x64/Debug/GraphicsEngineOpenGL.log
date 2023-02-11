@@ -1,12 +1,7 @@
 ﻿  Scanning sources for module dependencies...
-  Kernel.cpp
+  main.cpp
 C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(27,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\base\Kernel.cpp(5,2): warning C5103: pasting '::' and 'DIRECT3D' does not result in a valid preprocessing token
+C:\Proyectos\GraphicsEngineOpenGL\src\main.cpp(14,10): warning C4101: 'vertices': unreferenced local variable
+C:\Proyectos\GraphicsEngineOpenGL\src\main.cpp(39,2): warning C5103: pasting '::' and 'OPENGL1' does not result in a valid preprocessing token
 C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(5): message : in expansion of macro 'SELECT_RENDERER'
-  RenderFactory.cpp
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(27,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
-  WindowsWindow.cpp
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(27,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   GraphicsEngineOpenGL.vcxproj -> C:\Proyectos\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe

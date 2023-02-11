@@ -18,5 +18,7 @@ namespace engine
 
 		virtual void Init() = 0;
 		virtual int GetKeyState(int key) = 0;
+
+		virtual ~InputManager(){}
 	};
 }
