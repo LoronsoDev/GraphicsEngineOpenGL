@@ -105,7 +105,6 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 	Mesh3D* mesh = obj->GetMesh();
 	Material * mat = mesh->getMaterial();
 	mat->prepare();
-
 	mat->getProgram()->use();
 
 	VBO_t vbo;
