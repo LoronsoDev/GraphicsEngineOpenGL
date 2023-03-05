@@ -135,6 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\opengl\GLTexture.cpp" />
+    <ClCompile Include="src\engine\utils\stb_image.cpp" />
+    <ClCompile Include="src\scene\Camera.cpp" />
     <ClCompile Include="src\engine\base\Kernel.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.h" />
@@ -153,6 +156,11 @@
     <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\opengl\GLTexture.h" />
+    <ClInclude Include="src\engine\render\Texture.h" />
+    <ClInclude Include="src\engine\utils\EngineUtils.h" />
+    <ClInclude Include="src\engine\utils\stb_image.h" />
+    <ClInclude Include="src\scene\Camera.h" />
     <ClInclude Include="src\engine\base\Kernel.h" />
     <ClInclude Include="src\engine\base\GraphicsContext.h" />
     <ClInclude Include="src\engine\base\InputManager.h" />
