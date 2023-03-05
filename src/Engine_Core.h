@@ -18,6 +18,9 @@
 
 #include <glad/gl.h>
 
+//in-engine
+#include <engine/utils/EngineUtils.h>
+
 #define _USE_MATH_DEFINES
 
 #ifndef GLAD_ONLY_HEADERS

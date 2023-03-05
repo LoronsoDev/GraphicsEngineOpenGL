@@ -122,6 +122,7 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 		mesh->GetIdBufferList()->data(), GL_STATIC_DRAW);
 
 	bufferObjectList[mesh->GetMeshID()] = vbo;
+
 }
 
 void engine::OpenGL4Context::RemoveObject(Object* obj)
@@ -139,22 +140,23 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 		Mesh3D* mesh = obj->GetMesh();
 		Material* m = mesh->getMaterial();
 		RenderProgram* p = m->getProgram();
-		VBO_t buffer = this->bufferObjectList[mesh->GetMeshID()];
 
-		glBindVertexArray(buffer.boId);
-		glBindBuffer(GL_ARRAY_BUFFER, buffer.vbo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer.idxbo);
 		p->use();
-		glEnableVertexAttribArray(0);
+
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 			sizeof(Vertex), (void*)0x00);
-		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
 			sizeof(Vertex), (void*)(sizeof(glm::vec4) + sizeof(glm::vec4)));
+		glEnableVertexAttribArray(1);
 
 		glm::mat4 MVP = obj->GetModelMatrix();
 		p->setMat4("mMat", MVP);
 
+		auto vbo = bufferObjectList[mesh->GetMeshID()];
+		glBindVertexArray(vbo.boId);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
 		//dibujado
 		glDrawElements(GL_TRIANGLES, mesh->GetIdBufferList()->size(),
 			GL_UNSIGNED_INT, nullptr);

@@ -32,7 +32,7 @@ public:
 		SetMesh(mesh);
 	}
 
-	void Step(double dt) override
+	void Step(float dt) override
 	{
 		//esto por que iria aqui? idk esta aqui porque lo pone en la practica.
 		if (Kernel::s_InputManager->GetKeyState(GLFW_KEY_E) > 0)

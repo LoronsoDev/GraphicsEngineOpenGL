@@ -8,6 +8,7 @@ struct Vertex
 {
 	//Will contain more data on the future.
 	glm::vec4 VertexPos;
+	glm::vec2 VertexTexture;
 };
 
 typedef std::vector<Vertex> VertexBuffer;
