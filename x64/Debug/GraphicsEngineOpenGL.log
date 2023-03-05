@@ -1,6 +1,4 @@
 ﻿  Scanning sources for module dependencies...
-  main.cpp
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(27,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
-C:\Proyectos\GraphicsEngineOpenGL\src\main.cpp(53,2): warning C5103: pasting '::' and 'OPENGL4' does not result in a valid preprocessing token
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(5): message : in expansion of macro 'SELECT_RENDERER'
+  OpenGLContext.cpp
+C:\Proyectos\GraphicsEngineOpenGL\src\engine\opengl\OpenGLContext.cpp(162,28): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
   GraphicsEngineOpenGL.vcxproj -> C:\Proyectos\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe

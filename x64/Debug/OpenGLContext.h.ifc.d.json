@@ -301,6 +301,7 @@
             "c:\\proyectos\\graphicsengineopengl\\libs\\glad\\inc\\glad\\gl.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.19041.0\\shared\\winapifamily.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.19041.0\\shared\\winpackagefamily.h",
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\utils\\engineutils.h",
             "c:\\proyectos\\graphicsengineopengl\\libs\\glad\\inc\\glad\\gl.h",
             "c:\\proyectos\\graphicsengineopengl\\libs\\glfw\\inc\\glfw\\glfw3.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\base\\graphicscontext.h",
@@ -312,6 +313,7 @@
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\polygonutils.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\material.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\renderprogram.h",
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\texture.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.32.31326\\include\\map",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.32.31326\\include\\xtree"
         ],
