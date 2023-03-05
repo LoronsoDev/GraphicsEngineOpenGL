@@ -309,7 +309,11 @@
             "c:\\proyectos\\graphicsengineopengl\\src\\scene\\object.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\scene\\entity.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\mesh3d.h",
-            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\polygonutils.h"
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\polygonutils.h",
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\material.h",
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\renderprogram.h",
+            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.32.31326\\include\\map",
+            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.32.31326\\include\\xtree"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

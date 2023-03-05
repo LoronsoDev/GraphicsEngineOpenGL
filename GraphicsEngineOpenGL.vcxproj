@@ -138,8 +138,13 @@
     <ClCompile Include="src\engine\base\Kernel.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.h" />
+    <ClCompile Include="src\engine\render\EBO.cpp" />
+    <ClCompile Include="src\engine\render\GLSLMaterial.cpp" />
+    <ClCompile Include="src\engine\render\GLSLShader.cpp" />
     <ClCompile Include="src\engine\render\Mesh3D.cpp" />
     <ClCompile Include="src\engine\render\RenderFactory.cpp" />
+    <ClCompile Include="src\engine\render\VAO.cpp" />
+    <ClCompile Include="src\engine\render\VBO.cpp" />
     <ClCompile Include="src\engine\windows\GLFWInputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\engine\windows\WindowsWindow.cpp" />
@@ -153,9 +158,16 @@
     <ClInclude Include="src\engine\base\InputManager.h" />
     <ClInclude Include="src\engine\polygon\Mesh3D.h" />
     <ClInclude Include="src\engine\polygon\PolygonUtils.h" />
+    <ClInclude Include="src\engine\render\EBO.h" />
+    <ClInclude Include="src\engine\render\GLSLMaterial.h" />
+    <ClInclude Include="src\engine\render\GLSLShader.h" />
+    <ClInclude Include="src\engine\render\Material.h" />
     <ClInclude Include="src\engine\render\Mesh3D.h" />
     <ClInclude Include="src\engine\render\PolygonUtils.h" />
     <ClInclude Include="src\engine\render\RenderFactory.h" />
+    <ClInclude Include="src\engine\render\RenderProgram.h" />
+    <ClInclude Include="src\engine\render\VAO.h" />
+    <ClInclude Include="src\engine\render\VBO.h" />
     <ClInclude Include="src\engine\windows\GLFWInputManager.h" />
     <ClInclude Include="src\Engine_Core.h" />
     <ClInclude Include="src\engine\base\Window.h" />
@@ -165,6 +177,10 @@
     <ClInclude Include="src\scene\Entity.h" />
     <ClInclude Include="src\scene\Object.h" />
     <ClInclude Include="src\scene\Object3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\fragment.frag" />
+    <None Include="Shaders\vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
