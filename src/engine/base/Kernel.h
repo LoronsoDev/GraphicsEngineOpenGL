@@ -7,6 +7,8 @@
 #include <engine/render/RenderFactory.h>
 #include <engine/base/Window.h>
 
+class Camera;
+
 using namespace engine;
 
 class Kernel
@@ -17,6 +19,7 @@ public:
 	static GraphicsContext* s_GraphicsContext;
 	static engine::InputManager* s_InputManager;
 	static std::vector<Object*>* s_Objects;
+	static Camera* s_Camera;
 	static bool s_End;
 
 	Kernel();
