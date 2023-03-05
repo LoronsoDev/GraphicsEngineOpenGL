@@ -22,6 +22,12 @@ void Kernel::Init()
 	s_Objects = new std::vector<Object*>();
 }
 
+void Kernel::AddObject(Object* obj)
+{
+	s_Objects->push_back(obj);
+	s_GraphicsContext->SetupObject(obj);
+}
+
 
 void Kernel::Exit()
 {

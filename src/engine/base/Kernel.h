@@ -21,7 +21,7 @@ public:
 
 	Kernel();
 	static void Init();
-	static void AddObject(Object* obj) { s_Objects->push_back(obj); };
+	static void AddObject(Object* obj);
 	static void Exit();
 	static void Execute();
 };

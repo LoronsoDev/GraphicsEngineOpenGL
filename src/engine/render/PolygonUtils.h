@@ -11,3 +11,4 @@ struct Vertex
 };
 
 typedef std::vector<Vertex> VertexBuffer;
+typedef std::vector<glm::uint32> VertexIdBuffer;
