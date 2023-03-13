@@ -1,6 +1,6 @@
 #include "GLSLMaterial.h"
 
-#include "PolygonUtils.h"
+#include <engine/render/PolygonUtils.h>
 
 
 void GLSLMaterial::loadPrograms(std::string vertexSrc, std::string fragmentSrc)

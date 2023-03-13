@@ -4,12 +4,13 @@ Object::Object()
 {
 }
 
-Mesh3D* Object::GetMesh()
+std::vector<Mesh3D*> Object::GetMeshes()
 {
-	return m_Mesh;
+	return m_Meshes;
 }
 
 void Object::SetMesh(Mesh3D* m)
 {
-	m_Mesh = m;
+	++numMeshes;
+	m_Meshes.push_back(m);
 }

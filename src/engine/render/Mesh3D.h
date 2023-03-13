@@ -25,7 +25,8 @@ private:
 private:
 	glm::vec3 m_ColorRGB;
 	VertexBuffer* m_VertexBuffer;
-	Material* mat;
 	VertexIdBuffer* vTriangleIdxList;
+
+	Material* mat;
 
 };

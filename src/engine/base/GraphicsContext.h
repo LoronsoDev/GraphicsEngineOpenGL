@@ -2,6 +2,7 @@
 
 #include <engine/base/Window.h>
 #include <scene/Object.h>
+#include <scene/Camera.h>
 
 namespace engine
 {
@@ -11,6 +12,7 @@ namespace engine
 		virtual void Init(Window* renderWindow) = 0;
 		virtual void SwapBuffers() = 0;
 
+		virtual void SetupCamera(Camera* cam, bool isMainCam = true) = 0;
 		virtual void SetupObject(Object* obj) = 0;
 		virtual void RemoveObject(Object* obj) = 0;
 		virtual void DrawObjects(std::vector<Object*>* objs) = 0;
@@ -20,6 +22,10 @@ namespace engine
 		inline virtual int GetHeight() = 0;
 
 		virtual ~GraphicsContext() {};
+
+	protected:
+		//Main camera rendering the scene.
+		Camera* m_MainCamera = nullptr;
 	private:
 		Window* m_RenderWindow = nullptr;
 	};

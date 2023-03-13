@@ -1,8 +1,9 @@
 #pragma once
 #define GLAD_ONLY_HEADERS
 
-#include "Material.h"
-#include "GLSLShader.h"
+#include <engine/render/Mesh3D.h>
+#include <engine/render/Material.h>
+#include <engine/opengl/GLSLShader.h>
 
 class GLSLMaterial : public Material
 {

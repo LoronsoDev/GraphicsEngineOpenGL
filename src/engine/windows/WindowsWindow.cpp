@@ -52,6 +52,8 @@ void WindowsWindow::Init(const WindowProps& props)
 	SetupInputCallbacks();
 	std::cout << "\n GLFW WINDOW CREATED SUCCESFULLY \n";
 
+	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPos(m_Window, 0.0, 0.0);
 	glfwSetWindowUserPointer(m_Window, &m_WindowProperties); //Adds a user pointer that is returned for every callback.
 
 	//Context is created by the Kernel now.
@@ -86,17 +88,17 @@ void engine::WindowsWindow::SetupInputCallbacks()
 			props.InputManager->keybEvent[button] = action;
 		}
 	);
-
+	
 	glfwSetCursorPosCallback(m_Window,
 		[](GLFWwindow* window, double x, double y)
 		{
 			auto props = *(WindowProps*)glfwGetWindowUserPointer(window);
 
-			props.InputManager->lastMousePosX = (int)props.InputManager->mousePosX;
-			props.InputManager->lastMousePosY = (int)props.InputManager->mousePosY;
+			props.InputManager->lastMousePosX = props.InputManager->mousePosX;
+			props.InputManager->lastMousePosY = props.InputManager->mousePosY;
 
-			props.InputManager->mousePosX = (int)x;
-			props.InputManager->mousePosY = (int)y;
+			props.InputManager->mousePosX = x;
+			props.InputManager->mousePosY = y;
 		}
 	);
 

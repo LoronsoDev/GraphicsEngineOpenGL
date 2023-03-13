@@ -1,7 +1,7 @@
 #pragma once
 #define GLAD_ONLY_HEADERS
 
-#include "RenderProgram.h"
+#include <engine/render/RenderProgram.h>
 
 class GLSLShader : public RenderProgram
 {
@@ -13,8 +13,11 @@ public:
 
 	void setProgram(std::string programSrc, renderTypes_e type);
 	void linkPrograms();
-	std::string getErrorMsg();
+
 	void use() override;
+
+    void readProgramVariables() override;
+
     // utility uniform functions
     // ------------------------------------------------------------------------
     void setBool(const std::string& name, bool value) const;
@@ -40,5 +43,6 @@ public:
     void setMat4(const std::string& name, const glm::mat4& mat) const;
 private:
     void checkCompileErrors(GLuint shader, std::string type);
+    
 };
 

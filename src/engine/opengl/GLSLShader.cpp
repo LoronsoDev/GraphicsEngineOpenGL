@@ -64,13 +64,34 @@ void GLSLShader::linkPrograms()
     // delete the shaders as they're linked into our program now and no longer necessery
     glDeleteShader(vertex);
     glDeleteShader(fragment);
+
+    readProgramVariables();
 }
 
-//TODO: NOT USED (CLEAN IT)
-std::string GLSLShader::getErrorMsg()
+void GLSLShader::readProgramVariables()
 {
-    return "na";
+    use();
+    int count = 0;
+    constexpr GLsizei buffSize = 100;
+    char* name = new char[buffSize];
+    GLsizei length;
+    GLint size;
+    GLenum type;
+
+    glGetProgramiv(ID, GL_ACTIVE_ATTRIBUTES, &count);
+    for (int i = 0; i < count; i++)
+    {
+        glGetActiveAttrib(ID, (GLuint)i, 100, &length, &size, &type, name);
+        this->shaderProgramVars[std::string(name)] = glGetAttribLocation(ID, name);
+    }
+    glGetProgramiv(ID, GL_ACTIVE_UNIFORMS, &count);
+    for (int i = 0; i < count; i++)
+    {
+        glGetActiveUniform(ID, (GLuint)i, 100, &length, &size, &type, name);
+        shaderProgramVars[std::string(name)] = glGetUniformLocation(ID, name);
+    }
 }
+
 
 void GLSLShader::use()
 {

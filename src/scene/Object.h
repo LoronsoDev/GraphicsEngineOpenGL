@@ -15,11 +15,12 @@ class Object : public Entity
 public:
 	Object();
 
-	Mesh3D* GetMesh();
+	std::vector<Mesh3D*> GetMeshes();
 	void SetMesh(Mesh3D* mesh);
+	unsigned int numMeshes = 0;
 
 	virtual void LoadDataFromFile(std::string file) = 0;
 private:
-	Mesh3D* m_Mesh;
+	std::vector<Mesh3D*> m_Meshes;
 	ObjectType m_Type;
 };
