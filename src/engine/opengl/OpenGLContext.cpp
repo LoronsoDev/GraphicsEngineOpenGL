@@ -1,7 +1,5 @@
 #include "OpenGLContext.h"
 
-#include "engine/render/GLSLMaterial.h"
-
 void engine::OpenGL1Context::Init(Window* window)
 {
 	m_ContextWindow = reinterpret_cast<GLFWwindow*>(window);
@@ -41,18 +39,22 @@ void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 	
 	glBegin(GL_TRIANGLES);
 
-	for (auto obj : *objs)
+	for (const auto & obj : *objs)
 	{
-		const auto vertices = obj->GetMesh()->GetVertList();
-
-		for (Vertex v : *vertices)
+		for(auto mesh : obj->GetMeshes())
 		{
-			v.VertexPos = obj->GetModelMatrix() * v.VertexPos;
+			const auto vertices = mesh->GetVertList();
 
-			auto color = obj->GetMesh()->GetMeshColor();
-			glColor3f(v.VertexPos.x, v.VertexPos.y, v.VertexPos.z); //Purposefully inputted vertex position.
-			glVertex3f(v.VertexPos.x, v.VertexPos.y, v.VertexPos.z);
+			for (Vertex v : *vertices)
+			{
+				v.pos = obj->GetModelMatrix() * v.pos;
+
+				auto color = mesh->GetMeshColor();
+				glColor3f(v.pos.x, v.pos.y, v.pos.z); //Purposefully inputted vertex position.
+				glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+			}
 		}
+		
 	}
 
 	glEnd();
@@ -100,29 +102,50 @@ void engine::OpenGL4Context::SwapBuffers()
 	glfwSwapBuffers(m_ContextWindow);
 }
 
+void engine::OpenGL4Context::SetupCamera(Camera* cam, bool isMainCam)
+{
+	cam->computeViewMatrix();
+
+	if(isMainCam)
+		m_MainCamera = cam;
+}
+
 void engine::OpenGL4Context::SetupObject(Object* obj)
 {
-	Mesh3D* mesh = obj->GetMesh();
-	Material * mat = mesh->getMaterial();
-	mat->prepare();
-	mat->getProgram()->use();
+	for(const auto & mesh : obj->GetMeshes())
+	{
+		Material* mat = mesh->getMaterial();
+		mat->prepare();
 
-	VBO_t vbo;
-	glGenVertexArrays(1, &vbo.boId);
+		RenderProgram* program = mat->getProgram();
+		program->use();
 
-	glGenBuffers(1, &vbo.vbo);
-	glGenBuffers(1, &vbo.idxbo);
+		Texture* texture = mat->getTexture();
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * mesh->GetVertList()->size(),
-		mesh->GetVertList()->data(), GL_STATIC_DRAW);
+		VBO_t vbo;
+		glGenVertexArrays(1, &vbo.boId);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh->GetIdBufferList()->size(),
-		mesh->GetIdBufferList()->data(), GL_STATIC_DRAW);
+		glGenBuffers(1, &vbo.vbo);
+		glGenBuffers(1, &vbo.idxbo);
 
-	bufferObjectList[mesh->GetMeshID()] = vbo;
+		glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * mesh->GetVertList()->size(),
+			mesh->GetVertList()->data(), GL_STATIC_DRAW);
 
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mesh->GetIdBufferList()->size(),
+			mesh->GetIdBufferList()->data(), GL_STATIC_DRAW);
+
+		bufferObjectList[mesh->GetMeshID()] = vbo;
+
+
+		texture->Bind(0);
+		program->setInt("textureColor", 0);
+
+
+		texture->Load("assets/front.png");
+	}
+	
 }
 
 void engine::OpenGL4Context::RemoveObject(Object* obj)
@@ -135,32 +158,41 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-	for(auto obj: *objs)
+	for(auto & obj: *objs)
 	{
-		Mesh3D* mesh = obj->GetMesh();
-		Material* m = mesh->getMaterial();
-		RenderProgram* p = m->getProgram();
+		for(auto & mesh : obj->GetMeshes())
+		{
+			auto vbo = bufferObjectList[mesh->GetMeshID()];
+			glBindVertexArray(vbo.boId);
+			glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
 
-		p->use();
+			Material* m = mesh->getMaterial();
+			RenderProgram* p = m->getProgram();
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), (void*)0x00);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), (void*)(sizeof(glm::vec4) + sizeof(glm::vec4)));
-		glEnableVertexAttribArray(1);
+			p->use();
 
-		glm::mat4 MVP = obj->GetModelMatrix();
-		p->setMat4("mMat", MVP);
+			glEnableVertexAttribArray(p->shaderProgramVars["vPos"]);
+			glVertexAttribPointer(p->shaderProgramVars["vPos"], 4, GL_FLOAT, GL_FALSE,
+				sizeof(Vertex), (void*)offsetof(Vertex, pos));
 
-		auto vbo = bufferObjectList[mesh->GetMeshID()];
-		glBindVertexArray(vbo.boId);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
-		//dibujado
-		glDrawElements(GL_TRIANGLES, mesh->GetIdBufferList()->size(),
-			GL_UNSIGNED_INT, nullptr);
+			//Commented out as it's getting optimized by GLSL (variable not used).
+			/*glEnableVertexAttribArray(p->shaderProgramVars["vColor"]);
+			glVertexAttribPointer(p->shaderProgramVars["vColor"], 4, GL_FLOAT, GL_FALSE,
+				sizeof(Vertex), (void*)offsetof(Vertex, color));*/
 
+			glEnableVertexAttribArray(p->shaderProgramVars["vTextureUV"]);
+			glVertexAttribPointer(p->shaderProgramVars["vTextureUV"], 2, GL_FLOAT, GL_FALSE,
+				sizeof(Vertex), (void*)offsetof(Vertex, textureUV));
+			
+			glm::mat4 MVP = m_MainCamera->getProjection() * m_MainCamera->getView() * obj->GetModelMatrix();
+
+			p->setMat4("MVP", MVP);
+
+			//dibujado
+			glDrawElements(GL_TRIANGLES, mesh->GetIdBufferList()->size(),
+				GL_UNSIGNED_INT, nullptr);
+		}
 	}
 	glEnd();
 

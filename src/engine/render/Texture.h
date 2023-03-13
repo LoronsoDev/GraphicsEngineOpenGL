@@ -12,12 +12,15 @@ public:
 		CUBE3D,
 		UNDEFINED
 	};
-
 protected:
-	unsigned int ID;
+	const char* texturePath = "";
+	unsigned int ID = 0;
 	TextureType textureType = COLOR2D;
+	glm::ivec2 size = {0,0};
 
 public:
+	Texture(const char* path) : texturePath(path) {}
+
 	virtual ~Texture() = default;
 	/**
 	 * \brief Loads texture from file

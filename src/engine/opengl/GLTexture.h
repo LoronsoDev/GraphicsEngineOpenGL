@@ -3,10 +3,12 @@
 #define GLAD_ONLY_HEADERS
 #include <engine/render/Texture.h>
 
+#include "engine/render/Texture.h"
+
 class GLTexture : public Texture
 {
 public:
-	GLTexture(TextureType type)
+	GLTexture(const char* path, const TextureType type = TextureType::COLOR2D) : Texture(path)
 	{
 		this->textureType = type;
 	}
@@ -14,7 +16,7 @@ public:
 public:
 	void Load(std::string fileName) override;
 	unsigned int GetID() override { return ID; }
-	glm::ivec2 GetSize() override;
+	glm::ivec2 GetSize() override { return size; };
 	void Bind(unsigned int textureUnit) override;
 };
 

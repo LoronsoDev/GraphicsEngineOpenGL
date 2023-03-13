@@ -5,33 +5,29 @@
 void GLTexture::Load(std::string fileName)
 {
 	//out from stbi_load
-	int* x = nullptr;
-	int* y = nullptr;
-	int* channels = nullptr;
+	int channels = 0;
 	//
+	stbi_set_flip_vertically_on_load(true);
+	RGBA_8888 * image = (RGBA_8888*) stbi_load(fileName.c_str(), &size.x, &size.y, &channels, 4);
 
-	RGBA_8888 * image = (RGBA_8888*) stbi_load(fileName.c_str(), x, y, channels, 4);
-	
-	auto id = GetID();
-	auto size = GetSize();
+	if (!image) std::cout << "ENGINE ERROR: The texture path couldn't be read.";
 
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D, id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	const auto size = GetSize();
+
+	glGenTextures(1, &ID); //stores texture ID
+	glBindTexture(GL_TEXTURE_2D, ID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-
-
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(image);
 }
 
 void GLTexture::Bind(unsigned int textureUnit)
 {
-	glActiveTexture(GL_TEXTURE0 + textureUnit);
-
 	auto id = GetID();
 
 	switch (textureType)
@@ -44,4 +40,6 @@ void GLTexture::Bind(unsigned int textureUnit)
 		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
 		break;
 	}
+
+	glActiveTexture(GL_TEXTURE0 + textureUnit);
 }
