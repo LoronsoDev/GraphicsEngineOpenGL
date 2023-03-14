@@ -8,10 +8,17 @@ public:
         vertex = 0, fragment = 1
     }renderTypes_e;
 
+    /**
+     * \brief map that eases access to variables set in a shader.
+     */
+    std::map<std::string, unsigned int> shaderProgramVars;
+
 	virtual void setProgram(std::string programSrc, renderTypes_e type)=0;
-	virtual void linkPrograms()=0;
-	virtual std::string getErrorMsg()=0;
-	virtual void use()=0;
+	virtual void linkPrograms() = 0;
+	virtual void use() = 0;
+
+    virtual void readProgramVariables() = 0;
+
     // utility uniform functions
     // ------------------------------------------------------------------------
     virtual void setBool(const std::string& name, bool value) const = 0;

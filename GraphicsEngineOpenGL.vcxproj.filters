@@ -51,16 +51,28 @@
     <ClCompile Include="src\engine\render\EBO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\render\GLSLMaterial.cpp">
+    <ClCompile Include="src\engine\opengl\GLSLMaterial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\render\GLSLShader.cpp">
+    <ClCompile Include="src\engine\opengl\GLSLShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\render\VAO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\render\VBO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\opengl\GLTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\utils\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\primitives\PrimitiveObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,10 +134,10 @@
     <ClInclude Include="src\engine\render\EBO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\render\GLSLMaterial.h">
+    <ClInclude Include="src\engine\opengl\GLSLMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\render\GLSLShader.h">
+    <ClInclude Include="src\engine\opengl\GLSLShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\render\Material.h">
@@ -137,9 +149,29 @@
     <ClInclude Include="src\engine\render\VAO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\render\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\opengl\GLTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\utils\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\utils\EngineUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\primitives\PrimitiveObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragment.frag" />
-    <None Include="Shaders\vertex.vert" />
+    <None Include="Shaders\color_unlit.frag" />
+    <None Include="Shaders\color_unlit.vert" />
+    <None Include="Shaders\texture2D_unlit.frag" />
+    <None Include="Shaders\texture2D_unlit.vert" />
   </ItemGroup>
 </Project>

@@ -135,12 +135,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\scene\primitives\PrimitiveObjects.cpp" />
+    <ClCompile Include="src\engine\opengl\GLTexture.cpp" />
+    <ClCompile Include="src\engine\utils\stb_image.cpp" />
+    <ClCompile Include="src\scene\Camera.cpp" />
     <ClCompile Include="src\engine\base\Kernel.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLContext.h" />
     <ClCompile Include="src\engine\render\EBO.cpp" />
-    <ClCompile Include="src\engine\render\GLSLMaterial.cpp" />
-    <ClCompile Include="src\engine\render\GLSLShader.cpp" />
+    <ClCompile Include="src\engine\opengl\GLSLMaterial.cpp" />
+    <ClCompile Include="src\engine\opengl\GLSLShader.cpp" />
     <ClCompile Include="src\engine\render\Mesh3D.cpp" />
     <ClCompile Include="src\engine\render\RenderFactory.cpp" />
     <ClCompile Include="src\engine\render\VAO.cpp" />
@@ -153,14 +157,20 @@
     <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene\primitives\PrimitiveObjects.h" />
+    <ClInclude Include="src\engine\opengl\GLTexture.h" />
+    <ClInclude Include="src\engine\render\Texture.h" />
+    <ClInclude Include="src\engine\utils\EngineUtils.h" />
+    <ClInclude Include="src\engine\utils\stb_image.h" />
+    <ClInclude Include="src\scene\Camera.h" />
     <ClInclude Include="src\engine\base\Kernel.h" />
     <ClInclude Include="src\engine\base\GraphicsContext.h" />
     <ClInclude Include="src\engine\base\InputManager.h" />
     <ClInclude Include="src\engine\polygon\Mesh3D.h" />
     <ClInclude Include="src\engine\polygon\PolygonUtils.h" />
     <ClInclude Include="src\engine\render\EBO.h" />
-    <ClInclude Include="src\engine\render\GLSLMaterial.h" />
-    <ClInclude Include="src\engine\render\GLSLShader.h" />
+    <ClInclude Include="src\engine\opengl\GLSLMaterial.h" />
+    <ClInclude Include="src\engine\opengl\GLSLShader.h" />
     <ClInclude Include="src\engine\render\Material.h" />
     <ClInclude Include="src\engine\render\Mesh3D.h" />
     <ClInclude Include="src\engine\render\PolygonUtils.h" />
@@ -179,8 +189,10 @@
     <ClInclude Include="src\scene\Object3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragment.frag" />
-    <None Include="Shaders\vertex.vert" />
+    <None Include="Shaders\color_unlit.frag" />
+    <None Include="Shaders\color_unlit.vert" />
+    <None Include="Shaders\texture2D_unlit.frag" />
+    <None Include="Shaders\texture2D_unlit.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
