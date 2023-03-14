@@ -41,6 +41,8 @@ void GLSLShader::setProgram(std::string programSrc, renderTypes_e type)
 
 void GLSLShader::linkPrograms()
 {
+    ID = glCreateProgram();
+
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
     // 2. compile shaders
@@ -56,7 +58,6 @@ void GLSLShader::linkPrograms()
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
     // shader Program
-    ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
     glLinkProgram(ID);
@@ -97,6 +98,7 @@ void GLSLShader::use()
 {
 	glUseProgram(ID);
 }
+
 // utility uniform functions
 // ------------------------------------------------------------------------
 void GLSLShader::setBool(const std::string& name, bool value) const

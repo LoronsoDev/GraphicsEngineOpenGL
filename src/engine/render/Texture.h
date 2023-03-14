@@ -26,7 +26,7 @@ public:
 	 * \brief Loads texture from file
 	 * \param fileName path to texture file
 	 */
-	virtual void Load(std::string fileName) = 0;
+	virtual void Load() = 0;
 	/**
 	 * \brief
 	 * \return ID of the texture in the shader program 
@@ -41,4 +41,8 @@ public:
 	 * \brief "Next render passes will use this texture."
 	 */
 	virtual void Bind(unsigned int textureUnit) = 0;
+	/**
+	 * \brief Frees the texture binding to prepare for next bindings.
+	 */
+	virtual void Unbind() = 0;
 };

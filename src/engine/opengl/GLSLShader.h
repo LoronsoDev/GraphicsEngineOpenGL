@@ -7,7 +7,6 @@ class GLSLShader : public RenderProgram
 {
 public:
 	unsigned int ID;
-    std::string programSrc;
     std::string vertexCode;
     std::string fragmentCode;
 

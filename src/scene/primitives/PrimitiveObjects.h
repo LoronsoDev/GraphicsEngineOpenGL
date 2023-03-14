@@ -40,7 +40,7 @@ public:
 
 		mesh->addTriangle(0, 1, 2);
 
-		SetMesh(mesh);
+		AddMesh(mesh);
 	}
 
 	void Step(float dt) override

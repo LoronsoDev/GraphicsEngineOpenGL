@@ -2,13 +2,13 @@
 #include <engine/utils/stb_image.h>
 #include <engine/utils/EngineUtils.h>
 
-void GLTexture::Load(std::string fileName)
+void GLTexture::Load()
 {
 	//out from stbi_load
 	int channels = 0;
 	//
 	stbi_set_flip_vertically_on_load(true);
-	RGBA_8888 * image = (RGBA_8888*) stbi_load(fileName.c_str(), &size.x, &size.y, &channels, 4);
+	RGBA_8888 * image = (RGBA_8888*) stbi_load(texturePath, &size.x, &size.y, &channels, 4);
 
 	if (!image) std::cout << "ENGINE ERROR: The texture path couldn't be read.";
 
@@ -28,18 +28,24 @@ void GLTexture::Load(std::string fileName)
 
 void GLTexture::Bind(unsigned int textureUnit)
 {
-	auto id = GetID();
+
+	glActiveTexture(GL_TEXTURE0 + textureUnit);
 
 	switch (textureType)
 	{
 	case NORMAL:
 	case COLOR2D:
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(GL_TEXTURE_2D, ID);
 		break;
 	case CUBE3D:
-		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, ID);
 		break;
 	}
 
-	glActiveTexture(GL_TEXTURE0 + textureUnit);
 }
+
+void GLTexture::Unbind()
+{
+	glActiveTexture(GL_TEXTURE0);
+}
+
