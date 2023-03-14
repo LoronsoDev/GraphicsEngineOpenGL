@@ -14,9 +14,10 @@ public:
 	}
 
 public:
-	void Load(std::string fileName) override;
+	void Load() override;
 	unsigned int GetID() override { return ID; }
 	glm::ivec2 GetSize() override { return size; };
 	void Bind(unsigned int textureUnit) override;
+	void Unbind() override;
 };
 

@@ -44,6 +44,8 @@ namespace engine
 			GLuint idxbo;
 		}VBO_t;
 
+		VBO_t vbo;
+
 		std::map<int, VBO_t> bufferObjectList;
 		OpenGL4Context() { }
 

@@ -1,3 +1,4 @@
 ﻿  Scanning sources for module dependencies...
-  GLTexture.cpp
+  OpenGLContext.cpp
+C:\Proyectos\GraphicsEngineOpenGL\src\engine\opengl\OpenGLContext.cpp(196,29): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
   GraphicsEngineOpenGL.vcxproj -> C:\Proyectos\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe

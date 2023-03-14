@@ -89,6 +89,8 @@ void engine::OpenGL4Context::Init(Window* window)
 
 	glfwMakeContextCurrent(m_ContextWindow);
 	gladLoadGL(glfwGetProcAddress);
+	glEnable(GL_DEPTH_TEST);
+
 
 	std::cout << " OPENGL CONTEXT CREATED SUCCESFULLY \n";
 	std::cout << " CONTEXT RUNNING OPENGL4 \n";
@@ -121,14 +123,14 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 		program->use();
 
 		Texture* texture = mat->getTexture();
-
-		VBO_t vbo;
+		
 		glGenVertexArrays(1, &vbo.boId);
-
 		glGenBuffers(1, &vbo.vbo);
 		glGenBuffers(1, &vbo.idxbo);
-
+		glBindVertexArray(vbo.boId);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
+
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * mesh->GetVertList()->size(),
 			mesh->GetVertList()->data(), GL_STATIC_DRAW);
 
@@ -138,12 +140,26 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 
 		bufferObjectList[mesh->GetMeshID()] = vbo;
 
+		glEnableVertexAttribArray(program->shaderProgramVars["vPos"]);
+		glVertexAttribPointer(program->shaderProgramVars["vPos"], 4, GL_FLOAT, GL_FALSE,
+			sizeof(Vertex), (void*)offsetof(Vertex, pos));
 
-		texture->Bind(0);
+		//Commented out as it's getting optimized by GLSL (variable not used).
+		/*glEnableVertexAttribArray(p->shaderProgramVars["vColor"]);
+		glVertexAttribPointer(p->shaderProgramVars["vColor"], 4, GL_FLOAT, GL_FALSE,
+			sizeof(Vertex), (void*)offsetof(Vertex, color));*/
+
+		glEnableVertexAttribArray(program->shaderProgramVars["vTextureUV"]);
+		glVertexAttribPointer(program->shaderProgramVars["vTextureUV"], 2, GL_FLOAT, GL_FALSE,
+			sizeof(Vertex), (void*)offsetof(Vertex, textureUV));
+
+
+		glBindVertexArray(0);
+
 		program->setInt("textureColor", 0);
+		texture->Load();
+		texture->Bind(0);
 
-
-		texture->Load("assets/front.png");
 	}
 	
 }
@@ -157,41 +173,30 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 	for(auto & obj: *objs)
 	{
 		for(auto & mesh : obj->GetMeshes())
 		{
 			auto vbo = bufferObjectList[mesh->GetMeshID()];
-			glBindVertexArray(vbo.boId);
-			glBindBuffer(GL_ARRAY_BUFFER, vbo.vbo);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.idxbo);
 
 			Material* m = mesh->getMaterial();
 			RenderProgram* p = m->getProgram();
 
 			p->use();
-
-			glEnableVertexAttribArray(p->shaderProgramVars["vPos"]);
-			glVertexAttribPointer(p->shaderProgramVars["vPos"], 4, GL_FLOAT, GL_FALSE,
-				sizeof(Vertex), (void*)offsetof(Vertex, pos));
-
-			//Commented out as it's getting optimized by GLSL (variable not used).
-			/*glEnableVertexAttribArray(p->shaderProgramVars["vColor"]);
-			glVertexAttribPointer(p->shaderProgramVars["vColor"], 4, GL_FLOAT, GL_FALSE,
-				sizeof(Vertex), (void*)offsetof(Vertex, color));*/
-
-			glEnableVertexAttribArray(p->shaderProgramVars["vTextureUV"]);
-			glVertexAttribPointer(p->shaderProgramVars["vTextureUV"], 2, GL_FLOAT, GL_FALSE,
-				sizeof(Vertex), (void*)offsetof(Vertex, textureUV));
 			
 			glm::mat4 MVP = m_MainCamera->getProjection() * m_MainCamera->getView() * obj->GetModelMatrix();
 
 			p->setMat4("MVP", MVP);
 
+			Texture* texture = mesh->getMaterial()->getTexture();
 			//dibujado
+			glBindVertexArray(vbo.boId);
+			texture->Bind(0);
 			glDrawElements(GL_TRIANGLES, mesh->GetIdBufferList()->size(),
 				GL_UNSIGNED_INT, nullptr);
+
+			texture->Unbind();
+			glBindVertexArray(0);
 		}
 	}
 	glEnd();

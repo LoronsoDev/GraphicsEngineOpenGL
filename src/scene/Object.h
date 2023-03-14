@@ -16,7 +16,7 @@ public:
 	Object();
 
 	std::vector<Mesh3D*> GetMeshes();
-	void SetMesh(Mesh3D* mesh);
+	void AddMesh(Mesh3D* mesh);
 	unsigned int numMeshes = 0;
 
 	virtual void LoadDataFromFile(std::string file) = 0;
