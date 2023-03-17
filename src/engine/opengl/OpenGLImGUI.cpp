@@ -79,6 +79,7 @@ void OpenGLImGUI::Update()
 	if (fileBrowser.HasSelected())
 	{
 		//Load .MSH on here...
+		userPath = fileBrowser.GetSelected().string();
 		std::cout << "Selected filename at path : \n     " << fileBrowser.GetSelected().string() << std::endl;
 	}
 
@@ -95,6 +96,22 @@ void OpenGLImGUI::Update()
 		ImGui::SliderAngle("Y rot", &userRot.y);
 		ImGui::SliderAngle("Z rot", &userRot.z);
 		ImGui::SliderAngle("W rot", &userRot.w);
+
+		ImGui::Text("Scale:");
+
+		ImGui::Checkbox("Scale per axis", &scalePerAxis);
+		if(scalePerAxis)
+		{
+			ImGui::SliderFloat("X scale", &userScale.x, -50, 50);
+			ImGui::SliderFloat("Y scale", &userScale.y, -50, 50);
+			ImGui::SliderFloat("Z scale", &userScale.z, -50, 50);
+			ImGui::SliderFloat("W scale", &userScale.w, -50, 50);
+		}
+		else
+		{
+			ImGui::DragFloat("Scale", &uniformScale);
+			userScale = { uniformScale, uniformScale, uniformScale, uniformScale };
+		}
 
 	}
 	ImGui::End();

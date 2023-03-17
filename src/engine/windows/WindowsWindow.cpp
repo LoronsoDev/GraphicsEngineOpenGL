@@ -135,7 +135,17 @@ void WindowsWindow::OnUpdate()
 	}
 	else
 	{
-		m_InputManager->isUIInput = false;	
+		m_InputManager->isUIInput = false;
+
+		if (m_InputManager->GetKeyState(GLFW_MOUSE_BUTTON_1))
+		{
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		else
+		{
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+
 	}
 
 	if(m_InputManager->GetKeyState(GLFW_KEY_ESCAPE) == 1)

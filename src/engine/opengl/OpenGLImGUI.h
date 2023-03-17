@@ -12,10 +12,16 @@
 
 class OpenGLImGUI : public UserInterface
 {
+private:
+	float uniformScale = 1.0f;
+	bool scalePerAxis = false;
+
 	//parameters changed by the UI.
 public:
+	std::string userPath = "";
 	glm::vec3 userPos = glm::vec3(0);
 	glm::vec4 userRot = glm::vec4(0);
+	glm::vec4 userScale = glm::vec4(1);
 
 private:
 	engine::Window * window = nullptr;

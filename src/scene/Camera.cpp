@@ -74,10 +74,10 @@ void CameraKeyboard::Step(float timestep)
 	if (input->GetKeyState(GLFW_KEY_LEFT_SHIFT)) finalSpeed *= cameraMovementSpeedMultiplier;
 	else finalSpeed *= 1/cameraMovementSpeedMultiplier;
 
-	if (input->GetKeyState(GLFW_KEY_A)) SetPos(GetPos() - glm::cross(dir, up) * finalSpeed);
-	if (input->GetKeyState(GLFW_KEY_D)) SetPos(GetPos() + glm::cross(dir, up) * finalSpeed);
-	if (input->GetKeyState(GLFW_KEY_W)) SetPos(GetPos() + dir * finalSpeed);
-	if (input->GetKeyState(GLFW_KEY_S)) SetPos(GetPos() - dir * finalSpeed);
+	if (input->GetKeyState(GLFW_KEY_A)) SetPos(GetPos() - glm::cross(dir, up) * finalSpeed * timestep);
+	if (input->GetKeyState(GLFW_KEY_D)) SetPos(GetPos() + glm::cross(dir, up) * finalSpeed * timestep);
+	if (input->GetKeyState(GLFW_KEY_W)) SetPos(GetPos() + dir * finalSpeed * timestep);
+	if (input->GetKeyState(GLFW_KEY_S)) SetPos(GetPos() - dir * finalSpeed * timestep);
 
 	computeViewMatrix();
 }

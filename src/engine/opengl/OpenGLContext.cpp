@@ -186,6 +186,9 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 	{
 		obj->SetPos(UI->userPos);
 		obj->SetRot(UI->userRot);
+		obj->SetScale(UI->userScale);
+
+		//obj->LoadDataFromFile(UI->userPath);
 
 		for(auto & mesh : obj->GetMeshes())
 		{

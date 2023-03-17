@@ -4,6 +4,8 @@
 
 #include <scene/Camera.h>
 #include <scene/primitives/PrimitiveObjects.h>
+#include <pugixml.cpp>
+
 
 
 int main(int chargc, char** argv)
@@ -12,7 +14,12 @@ int main(int chargc, char** argv)
 
 	Kernel::Init();
 
-	CubeTex object;
+	//CubeTex object;
+
+	Object3D object;
+
+	object.LoadDataFromFile("assets/asian_town.msh");
+	object.SetScale({ 5,5,5,5 });
 
 	CameraKeyboard camera(
 		Camera::ProjectionType::PERSPECTIVE,
@@ -20,7 +27,7 @@ int main(int chargc, char** argv)
 		{ 0,1.f,0 },
 		object.GetPos(),
 		Kernel::s_InputManager,
-		0.025f,
+		1.0f,
 		0.5f);
 
 

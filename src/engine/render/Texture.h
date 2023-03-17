@@ -13,7 +13,7 @@ public:
 		UNDEFINED
 	};
 protected:
-	const char* texturePath = "";
+	std::string texturePath = "";
 	unsigned int ID = 0;
 	TextureType textureType = COLOR2D;
 	glm::ivec2 size = {0,0};
