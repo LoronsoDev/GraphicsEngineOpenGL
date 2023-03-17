@@ -4,7 +4,6 @@
 #include <Engine_Core.h>
 #include <engine/base/InputManager.h>
 
-
 namespace engine
 {
 class GraphicsContext;
@@ -20,10 +19,11 @@ class GraphicsContext;
 
 			bool VSync = true;
 			bool isRunning = true;
+			bool isCursorVisible = true;
 
 			InputManager* InputManager = nullptr;
 			GraphicsContext* GraphicsContext = nullptr;
-
+			
 			WindowProps(const std::string& title = "3D ENGINE BASE WINDOW",
 				unsigned int w = 1280,
 				unsigned int h = 720)

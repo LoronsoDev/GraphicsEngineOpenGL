@@ -26,7 +26,6 @@ namespace engine
 	protected:
 		//Main camera rendering the scene.
 		Camera* m_MainCamera = nullptr;
-	private:
 		Window* m_RenderWindow = nullptr;
 	};
 }

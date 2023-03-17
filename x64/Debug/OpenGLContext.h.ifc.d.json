@@ -318,7 +318,15 @@
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\render\\texture.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\scene\\camera.h",
             "c:\\proyectos\\graphicsengineopengl\\src\\engine\\opengl\\glslmaterial.h",
-            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\opengl\\glslshader.h"
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\opengl\\glslshader.h",
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\opengl\\openglimgui.h",
+            "c:\\proyectos\\graphicsengineopengl\\libs\\imgui\\imgui.h",
+            "c:\\proyectos\\graphicsengineopengl\\libs\\imgui\\imconfig.h",
+            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.32.31326\\include\\stdarg.h",
+            "c:\\program files (x86)\\windows kits\\10\\include\\10.0.19041.0\\ucrt\\assert.h",
+            "c:\\proyectos\\graphicsengineopengl\\libs\\imgui\\imgui_impl_opengl3.h",
+            "c:\\proyectos\\graphicsengineopengl\\libs\\imgui\\imgui_impl_glfw.h",
+            "c:\\proyectos\\graphicsengineopengl\\src\\engine\\base\\userinterface.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

@@ -14,10 +14,28 @@ void Camera::computeViewMatrix()
 
 void CameraKeyboard::Step(float timestep)
 {
+	if (input->isUIInput) return;
+
+	static bool firstControl = false;
+	if (!input->GetKeyState(GLFW_MOUSE_BUTTON_1))
+	{
+		firstControl = true;
+		return;
+	}
+
 	float cameraMovementSpeedMultiplier = 2;
 
-	static float prevYaw = input->mousePosX;
-	static float prevPitch = input->mousePosY;
+
+	static float prevYaw;
+	static float prevPitch;
+
+
+	if (firstControl)
+	{
+		prevYaw = input->mousePosX;
+		prevPitch = input->mousePosY;
+		firstControl = false;
+	}
 
 	//mouse velocities
 	float yaw = prevYaw - input->mousePosX;

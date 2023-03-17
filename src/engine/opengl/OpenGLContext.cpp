@@ -2,6 +2,7 @@
 
 void engine::OpenGL1Context::Init(Window* window)
 {
+	m_RenderWindow = window;
 	m_ContextWindow = reinterpret_cast<GLFWwindow*>(window);
 
 	glfwMakeContextCurrent(m_ContextWindow);
@@ -85,12 +86,18 @@ int engine::OpenGL1Context::GetHeight()
 
 void engine::OpenGL4Context::Init(Window* window)
 {
-	m_ContextWindow = reinterpret_cast<GLFWwindow*>(window);
+	m_RenderWindow = window;
+	m_ContextWindow = (GLFWwindow*) window->GetNativeWindow();
 
 	glfwMakeContextCurrent(m_ContextWindow);
 	gladLoadGL(glfwGetProcAddress);
-	glEnable(GL_DEPTH_TEST);
 
+	//UI CREATE CONTEXT
+	UI = std::make_unique<OpenGLImGUI>(OpenGLImGUI());
+	UI->CreateContext(window);
+	UI->Init();
+
+	glEnable(GL_DEPTH_TEST);
 
 	std::cout << " OPENGL CONTEXT CREATED SUCCESFULLY \n";
 	std::cout << " CONTEXT RUNNING OPENGL4 \n";
@@ -172,9 +179,14 @@ void engine::OpenGL4Context::RemoveObject(Object* obj)
 void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	UI->Update();
 
 	for(auto & obj: *objs)
 	{
+		obj->SetPos(UI->userPos);
+		obj->SetRot(UI->userRot);
+
 		for(auto & mesh : obj->GetMeshes())
 		{
 			auto vbo = bufferObjectList[mesh->GetMeshID()];
@@ -192,6 +204,7 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 			//dibujado
 			glBindVertexArray(vbo.boId);
 			texture->Bind(0);
+
 			glDrawElements(GL_TRIANGLES, mesh->GetIdBufferList()->size(),
 				GL_UNSIGNED_INT, nullptr);
 
@@ -199,6 +212,9 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 			glBindVertexArray(0);
 		}
 	}
+
+	UI->Render();
+
 	glEnd();
 
 	SwapBuffers();
