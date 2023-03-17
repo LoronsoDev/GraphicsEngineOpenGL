@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object.h"
+#include <pugixml.hpp>
 
 class Object3D : public Object
 {
