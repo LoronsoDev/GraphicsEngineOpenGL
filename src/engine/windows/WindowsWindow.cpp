@@ -1,3 +1,4 @@
+#include <engine/base/UserInterface.h>
 #include <engine/windows/WindowsWindow.h>
 
 using namespace engine;
@@ -52,13 +53,16 @@ void WindowsWindow::Init(const WindowProps& props)
 	SetupInputCallbacks();
 	std::cout << "\n GLFW WINDOW CREATED SUCCESFULLY \n";
 
-	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	glfwSetCursorPos(m_Window, 0.0, 0.0);
+	m_InputManager->isMouseHidden = true;
+
 	glfwSetWindowUserPointer(m_Window, &m_WindowProperties); //Adds a user pointer that is returned for every callback.
 
 	//Context is created by the Kernel now.
 	m_Context = RenderFactory::CreateRenderer();
-	m_Context->Init(reinterpret_cast<Window*>(m_Window));
+
+	m_Context->Init(this);
 
 	m_WindowProperties.GraphicsContext = m_Context;
 
@@ -124,6 +128,21 @@ void engine::WindowsWindow::SetupInputCallbacks()
 void WindowsWindow::OnUpdate()
 {
 	glfwPollEvents();
+
+	if(ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard)
+	{
+		m_InputManager->isUIInput = true;
+	}
+	else
+	{
+		m_InputManager->isUIInput = false;	
+	}
+
+	if(m_InputManager->GetKeyState(GLFW_KEY_ESCAPE) == 1)
+	{
+		m_WindowProperties.isRunning = false;
+	}
+
 
 	if(glfwWindowShouldClose(m_Window))
 		m_WindowProperties.isRunning = false;

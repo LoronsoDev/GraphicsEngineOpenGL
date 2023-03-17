@@ -5,6 +5,7 @@
 #include <engine/opengl/OpenGLContext.h>
 #include <engine/windows/GLFWInputManager.h>
 #include <engine/render/RenderFactory.h>
+#include <engine/opengl/OpenGLImGUI.h>
 
 namespace engine
 {

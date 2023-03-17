@@ -16,6 +16,9 @@ namespace engine
 
 		float scrollOffsetX, scrollOffsetY;
 
+		bool isUIInput = false;
+		bool isMouseHidden = false;
+
 		virtual void Init() = 0;
 		virtual int GetKeyState(int key) = 0;
 

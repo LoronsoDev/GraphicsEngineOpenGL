@@ -6,6 +6,7 @@
 #include <engine/base/GraphicsContext.h>
 #include <engine/opengl/GLSLMaterial.h>
 #include <scene/Camera.h>
+#include <engine/opengl/OpenGLImGUI.h>
 
 #include <map>
 
@@ -45,6 +46,8 @@ namespace engine
 		}VBO_t;
 
 		VBO_t vbo;
+
+		std::unique_ptr<OpenGLImGUI> UI = nullptr;
 
 		std::map<int, VBO_t> bufferObjectList;
 		OpenGL4Context() { }

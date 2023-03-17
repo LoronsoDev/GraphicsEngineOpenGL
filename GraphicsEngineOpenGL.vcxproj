@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>libs/glm;src;libs/glfw/inc;libs/glad/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libs/glm;src;libs/glfw/inc;libs/glad/inc;libs/imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>libs/glm;src;libs/glfw/inc;libs/glad/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libs/glm;src;libs/glfw/inc;libs/glad/inc;libs/imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -135,6 +135,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\opengl\OpenGLImGUI.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\engine\utils\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\scene\primitives\PrimitiveObjects.cpp" />
     <ClCompile Include="src\engine\opengl\GLTexture.cpp" />
     <ClCompile Include="src\engine\utils\stb_image.cpp" />
@@ -157,6 +165,8 @@
     <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\opengl\OpenGLImGUI.h" />
+    <ClInclude Include="src\engine\base\UserInterface.h" />
     <ClInclude Include="src\scene\primitives\PrimitiveObjects.h" />
     <ClInclude Include="src\engine\opengl\GLTexture.h" />
     <ClInclude Include="src\engine\render\Texture.h" />
