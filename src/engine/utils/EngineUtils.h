@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Engine_Core.h>
-
 struct RGBA_8888
 {
 	union

@@ -7,4 +7,5 @@ class Object3D : public Object
 {
 public:
 	virtual void LoadDataFromFile(std::string path) override;
+	void Step(float deltaTime) override;
 };
