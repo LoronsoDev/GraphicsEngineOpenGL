@@ -99,6 +99,12 @@
     <ClCompile Include="src\engine\opengl\OpenGLImGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\OrbitalLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine_Core.h">
@@ -197,11 +203,19 @@
     <ClInclude Include="src\engine\opengl\OpenGLImGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\OrbitalLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color_unlit.frag" />
     <None Include="Shaders\color_unlit.vert" />
     <None Include="Shaders\texture2D_unlit.frag" />
     <None Include="Shaders\texture2D_unlit.vert" />
+    <None Include="Shaders\color_lit.vert" />
+    <None Include="Shaders\color_lit.frag" />
   </ItemGroup>
 </Project>

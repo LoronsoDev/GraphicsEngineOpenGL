@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\scene\Light.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLImGUI.cpp" />
     <ClCompile Include="src\engine\utils\imgui\imgui.cpp" />
     <ClCompile Include="src\engine\utils\imgui\imgui_demo.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="src\engine\utils\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\engine\utils\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\engine\utils\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\scene\OrbitalLight.cpp" />
     <ClCompile Include="src\scene\primitives\PrimitiveObjects.cpp" />
     <ClCompile Include="src\engine\opengl\GLTexture.cpp" />
     <ClCompile Include="src\engine\utils\stb_image.cpp" />
@@ -165,8 +167,10 @@
     <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene\Light.h" />
     <ClInclude Include="src\engine\opengl\OpenGLImGUI.h" />
     <ClInclude Include="src\engine\base\UserInterface.h" />
+    <ClInclude Include="src\scene\OrbitalLight.h" />
     <ClInclude Include="src\scene\primitives\PrimitiveObjects.h" />
     <ClInclude Include="src\engine\opengl\GLTexture.h" />
     <ClInclude Include="src\engine\render\Texture.h" />
@@ -199,6 +203,8 @@
     <ClInclude Include="src\scene\Object3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\color_lit.frag" />
+    <None Include="Shaders\color_lit.vert" />
     <None Include="Shaders\color_unlit.frag" />
     <None Include="Shaders\color_unlit.vert" />
     <None Include="Shaders\texture2D_unlit.frag" />

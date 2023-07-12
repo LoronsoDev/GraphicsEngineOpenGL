@@ -83,38 +83,76 @@ void OpenGLImGUI::Update()
 		std::cout << "Selected filename at path : \n     " << fileBrowser.GetSelected().string() << std::endl;
 	}
 
-	ImGui::SetNextWindowBgAlpha(0.3f);
-	ImGui::Begin("Object settings");
+	int windowIndex = 0;
+	for(ModifiableIngameItem* item : sceneObjects)
 	{
-		ImGui::Text("Position:");
-		ImGui::SliderFloat("X pos", &userPos.x, -10, 10);
-		ImGui::SliderFloat("Y pos", &userPos.y, -10, 10);
-		ImGui::SliderFloat("Z pos", &userPos.z, -10, 10);
+		std::string title = "[" + std::to_string(++windowIndex) + "] " + item->item_type_id;
 
-		ImGui::Text("Rotation:");
-		ImGui::SliderAngle("X rot", &userRot.x);
-		ImGui::SliderAngle("Y rot", &userRot.y);
-		ImGui::SliderAngle("Z rot", &userRot.z);
-		ImGui::SliderAngle("W rot", &userRot.w);
-
-		ImGui::Text("Scale:");
-
-		ImGui::Checkbox("Scale per axis", &scalePerAxis);
-		if(scalePerAxis)
+		ImGui::SetNextWindowBgAlpha(0.3f);
+		ImGui::Begin(title.c_str());
 		{
-			ImGui::SliderFloat("X scale", &userScale.x, -50, 50);
-			ImGui::SliderFloat("Y scale", &userScale.y, -50, 50);
-			ImGui::SliderFloat("Z scale", &userScale.z, -50, 50);
-			ImGui::SliderFloat("W scale", &userScale.w, -50, 50);
+			ImGui::Text("Position:");
+			ImGui::SliderFloat("X pos", &item->userPos.x, -10, 10);
+			ImGui::SliderFloat("Y pos", &item->userPos.y, -10, 10);
+			ImGui::SliderFloat("Z pos", &item->userPos.z, -10, 10);
+
+			ImGui::Text("Rotation:");
+			ImGui::SliderAngle("X rot", &item->userRot.x);
+			ImGui::SliderAngle("Y rot", &item->userRot.y);
+			ImGui::SliderAngle("Z rot", &item->userRot.z);
+			ImGui::SliderAngle("W rot", &item->userRot.w);
+
+			ImGui::Text("Scale:");
+
+			ImGui::Checkbox("Scale per axis", &item->scalePerAxis);
+			if (item->scalePerAxis)
+			{
+				ImGui::SliderFloat("X scale", &item->userScale.x, -50, 50);
+				ImGui::SliderFloat("Y scale", &item->userScale.y, -50, 50);
+				ImGui::SliderFloat("Z scale", &item->userScale.z, -50, 50);
+				ImGui::SliderFloat("W scale", &item->userScale.w, -50, 50);
+			}
+			else
+			{
+				ImGui::DragFloat("Scale", &item->uniformScale);
+				item->userScale = { item->uniformScale, item->uniformScale, item->uniformScale, 1.0f };
+			}
+
 		}
-		else
-		{
-			ImGui::DragFloat("Scale", &uniformScale);
-			userScale = { uniformScale, uniformScale, uniformScale, uniformScale };
-		}
+		ImGui::End();
 
 	}
-	ImGui::End();
+	
+	for (ModifiableIngameItem* item : sceneLights)
+	{
+		std::string title = "[" + std::to_string(++windowIndex) + "] " + item->item_type_id;
+
+		ImGui::SetNextWindowBgAlpha(0.3f);
+		ImGui::Begin(title.c_str());
+		{
+			ImGui::Text("Position:");
+			ImGui::SliderFloat("X pos", &item->userPos.x, -10, 10);
+			ImGui::SliderFloat("Y pos", &item->userPos.y, -10, 10);
+			ImGui::SliderFloat("Z pos", &item->userPos.z, -10, 10);
+
+			ImGui::Text("Direction:");
+			ImGui::SliderAngle("X rot", &item->userRot.x);
+			ImGui::SliderAngle("Y rot", &item->userRot.y);
+			ImGui::SliderAngle("Z rot", &item->userRot.z);
+			
+			ImGui::Text("Attenuation:");
+			ImGui::DragFloat("Intensity", &item->userScale.z, 0.01, 0.01, 10);
+			ImGui::DragFloat("Linear attenuation", &item->userScale.x, 0.01, 0, 5);
+			ImGui::DragFloat("Quadratic attenuation", &item->userScale.y, 0.01, 0, 5);
+
+			ImGui::Text("Parameters");
+			ImGui::ColorPicker4("Color", &item->auxValues[0]);
+		}
+		ImGui::End();
+	}
+
+
+	
 }
 
 void OpenGLImGUI::Render()

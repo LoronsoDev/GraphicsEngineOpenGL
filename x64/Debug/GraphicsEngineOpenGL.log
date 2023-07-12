@@ -1,9 +1,18 @@
 ﻿  Scanning sources for module dependencies...
-  OpenGLImGUI.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Proyectos\GraphicsEngineOpenGL\libs\glfw\inc\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winbase.h(9531,5): warning C5105: macro expansion producing 'defined' has undefined behavior
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\opengl\OpenGLImGUI.cpp(43,99): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Proyectos\GraphicsEngineOpenGL\src\engine\opengl\OpenGLImGUI.cpp(43,64): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  GraphicsEngineOpenGL.vcxproj -> C:\Proyectos\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe
+  main.cpp
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\scene\Light.h(28,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\scene\Light.h(29,29): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(30,3): warning C4091: 'static ': ignored on left of 'engine::RenderFactory' when no variable is declared
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\main.cpp(13,2): warning C5103: pasting '::' and 'OPENGL4' does not result in a valid preprocessing token
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\engine\render\RenderFactory.h(7): message : in expansion of macro 'SELECT_RENDERER'
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\main.cpp(29,45): warning C4305: 'argument': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\src\main.cpp(35,48): warning C4305: 'argument': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+  GraphicsEngineOpenGL.vcxproj -> C:\Proyectos\tests_github\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe

@@ -9,7 +9,7 @@ void GLTexture::Load()
 	//
 
 	//stbi_set_flip_vertically_on_load(true);
-	RGBA_8888 * image = (RGBA_8888*) stbi_load(texturePath.c_str(), &size.x, &size.y, &channels, 4);
+	RGBA * image = (RGBA*) stbi_load(texturePath.c_str(), &size.x, &size.y, &channels, 4);
 
 	if (!image) std::cout << "ENGINE ERROR: The texture path couldn't be read.";
 

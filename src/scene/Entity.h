@@ -9,6 +9,8 @@
 class Entity
 {
 public:
+	std::string name = "Entity";
+
 	virtual ~Entity() = default;
 	Entity();
 

@@ -12,16 +12,26 @@
 
 class OpenGLImGUI : public UserInterface
 {
-private:
-	float uniformScale = 1.0f;
-	bool scalePerAxis = false;
-
 	//parameters changed by the UI.
 public:
+
+	struct ModifiableIngameItem
+	{
+		std::string item_type_id = "OBJECT";
+		glm::vec3 userPos = glm::vec3(0);
+		glm::vec4 userRot = glm::vec4(0);
+		glm::vec4 userScale = glm::vec4(1);
+		float uniformScale = 1.0f;
+
+		bool scalePerAxis = false;
+
+		glm::vec4 auxValues = glm::vec4(-1.f); //Used for aux stuff
+	};
+
+	std::vector<ModifiableIngameItem*> sceneObjects;
+	std::vector<ModifiableIngameItem*> sceneLights;
+
 	std::string userPath = "";
-	glm::vec3 userPos = glm::vec3(0);
-	glm::vec4 userRot = glm::vec4(0);
-	glm::vec4 userScale = glm::vec4(1);
 
 private:
 	engine::Window * window = nullptr;
