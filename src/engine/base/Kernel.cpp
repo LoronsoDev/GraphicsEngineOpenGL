@@ -9,6 +9,7 @@ GraphicsContext* Kernel::s_GraphicsContext = nullptr;
 InputManager* Kernel::s_InputManager = nullptr;
 std::vector<Object*>* Kernel::s_Objects = nullptr;
 std::vector<Camera*>* Kernel::s_Cameras = nullptr;
+std::vector<Light*>* Kernel::s_Lights = nullptr;
 
 bool Kernel::s_End = false;
 
@@ -23,6 +24,7 @@ void Kernel::Init()
 
 	s_Objects = new std::vector<Object*>();
 	s_Cameras = new std::vector<Camera*>();
+	s_Lights = new std::vector<Light*>();
 }
 
 void Kernel::AddObject(Object* obj)
@@ -40,6 +42,11 @@ void Kernel::AddCamera(Camera* cam)
 	cam->computeProjectionMatrix((s_Window->GetWidth() + 0.0f) / s_Window->GetHeight());
 }
 
+void Kernel::AddLight(Light* light)
+{
+	s_Lights->push_back(light);
+}
+
 
 void Kernel::Exit()
 {
@@ -48,6 +55,7 @@ void Kernel::Exit()
 	delete s_GraphicsContext;
 	delete s_InputManager;
 	delete s_Objects;
+	delete s_Lights;
 }
 
 void Kernel::Execute()
@@ -55,6 +63,8 @@ void Kernel::Execute()
 	float newTime = 0;
 	float deltaTime = 0;
 	float lastTime = 0;
+
+	s_GraphicsContext->SetupLighting(s_Lights, &ambientLight);
 
 	//Main update loop.
 	while (!s_End)
@@ -75,6 +85,11 @@ void Kernel::Execute()
 		{
 			obj->Step(deltaTime);
 			obj->ComputeModelMatrix();
+		}
+
+		for(Light * l : *s_Lights)
+		{
+			l->step(deltaTime);
 		}
 
 		s_GraphicsContext->DrawObjects(s_Objects);

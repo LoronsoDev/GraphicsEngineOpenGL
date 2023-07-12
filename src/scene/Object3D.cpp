@@ -32,28 +32,58 @@ void Object3D::LoadDataFromFile(std::string path)
 
 	if (result) std::cout << "Error reading provided file: " << path;
 
-	for(pugi::xml_node bufferNode = buffersNode.child("buffer");
+	for (pugi::xml_node bufferNode = buffersNode.child("buffer");
 		bufferNode;
 		bufferNode = bufferNode.next_sibling("buffer"))
 	{
 		Mesh3D* mesh = new Mesh3D;
 
 		auto matNode = bufferNode.child("material");
-		if(matNode)
+		if (matNode)
 		{
 			auto texNode = matNode.child("texture");
 
 			Material* mat = new GLSLMaterial();
-			if(texNode)
+			if (texNode)
 			{
 				Texture* texture = engine::RenderFactory::GetNewTexture(texNode.text().as_string(), Texture::COLOR2D);
 				mat->setTexture(texture);
+			}
+			auto colorNode = matNode.child("color");
+			if (colorNode)
+			{
+				std::vector<float> listcolor = splitString<float>(colorNode.text().as_string(), ',');
+				RGBA mat_color;
+
+				mat_color.r = listcolor[0];
+				mat_color.g = listcolor[1];
+				mat_color.b = listcolor[2];
+				mat_color.a = listcolor[3];
+				mat->setColor(mat_color);
+			}
+			auto shininess = matNode.child("shininess");
+			if (shininess)
+			{
+				float shine = shininess.text().as_float();
+				mat->setShininess(shine/sizeof(uint8_t));
+			}
+			else
+			{
+				// defaults color if there isn't one specified.
+				RGBA mat_color;
+				mat_color.r = 0.f;
+				mat_color.g = 0.f;
+				mat_color.b = 0.f;
+				mat_color.a = 0.f;
+
+				mat->setColor(mat_color);
+				mat->hasColor = false;
 			}
 
 			auto vShaderNode = matNode.child("vShader");
 			auto fShaderNode = matNode.child("fShader");
 
-			if(vShaderNode && fShaderNode)
+			if (vShaderNode && fShaderNode)
 			{
 				mat->loadPrograms(vShaderNode.text().as_string(), fShaderNode.text().as_string());
 				mesh->setMaterial(mat);
@@ -70,11 +100,26 @@ void Object3D::LoadDataFromFile(std::string path)
 		//VERTEX
 		std::vector<float> vertexBuffer = splitString<float>(bufferNode.child("coords").
 			text().as_string(), ',');
-		std::vector<float> uvList = splitString<float>(bufferNode.child("texCoords").
-			text().as_string(), ',');
+
+		auto texCoordsNode = bufferNode.child("texCoords");
+		std::vector<float> uvList;
+		if (texCoordsNode)
+		{
+			uvList = splitString<float>(texCoordsNode.
+				text().as_string(), ',');
+		}
+
+		auto normalsNode = bufferNode.child("normals");
+		std::vector<float> nList;
+		if (normalsNode)
+		{
+			nList = splitString<float>(normalsNode.
+				text().as_string(), ',');
+		}
 
 		auto coord = vertexBuffer.begin();
 		auto texCoord = uvList.begin();
+		auto normal = nList.begin();
 
 		while (coord != vertexBuffer.end())
 		{
@@ -83,6 +128,21 @@ void Object3D::LoadDataFromFile(std::string path)
 			v.pos.y = *coord++;
 			v.pos.z = *coord++;
 			v.pos.w = 1.0f;
+
+			if (normalsNode)
+			{
+				v.normal.x = *normal++;
+				v.normal.y = *normal++;
+				v.normal.z = *normal++;
+				v.normal.w = 0.0f;
+				v.normal = glm::normalize(v.normal);
+			}
+
+			RGBA color = mesh->getMaterial()->getColor();
+			if (mesh->getMaterial()->hasColor)
+			{
+				v.color = { color.r, color.g, color.b, color.a };
+			}
 
 			if (uvList.size() > 0) {
 				v.textureUV.x = *texCoord++;
@@ -94,7 +154,6 @@ void Object3D::LoadDataFromFile(std::string path)
 
 		this->AddMesh(mesh);
 	}
-
 }
 
 inline std::string extractPath(std::string filename) {
