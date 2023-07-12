@@ -101,8 +101,12 @@ void engine::OpenGL4Context::Init(Window* window)
 	UI = std::make_unique<OpenGLImGUI>(OpenGLImGUI());
 	UI->CreateContext(window);
 	UI->Init();
-
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+
 
 	std::cout << " OPENGL CONTEXT CREATED SUCCESFULLY \n";
 	std::cout << " CONTEXT RUNNING OPENGL4 \n";
@@ -167,6 +171,34 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 
 		Texture* texture = mat->getTexture();
 		RGBA color = mat->getColor();
+
+		switch(mat->getBlendMode())
+		{
+			case Material::BlendMode::ADD:
+				glBlendFunc(GL_ONE, GL_ONE);
+				break;
+			case Material::BlendMode::ALPHA:
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				break;
+			case Material::BlendMode::MULTIPLY:
+				glBlendFunc(GL_DST_COLOR, GL_ZERO);
+				break;
+		}
+
+		bool culled = mat->getCulling();
+		bool depthBuffered = mat->getDepthWrite();
+
+		if (culled)
+			glEnable(GL_CULL_FACE);
+		else
+			glDisable(GL_CULL_FACE);
+
+		if (depthBuffered)
+			glDepthMask(GL_TRUE);
+		else
+			glDepthMask(GL_FALSE);
+		
+
 
 		glGenVertexArrays(1, &vbo.boId);
 		glGenBuffers(1, &vbo.vbo);
