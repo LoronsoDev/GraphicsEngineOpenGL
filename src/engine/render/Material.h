@@ -22,7 +22,7 @@ private:
 
 public:
 	bool hasColor = false;
-	bool isAffectedByLight = false;
+	bool isAffectedByLight = true;
 	bool isCulled = true;
 	bool hasDepthBuffer = true;
 

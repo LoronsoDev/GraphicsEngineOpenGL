@@ -16,7 +16,7 @@ int main(int chargc, char** argv)
 
 	//CubeTex object;
 
-	Object3D object;
+	Billboard object;
 	object.name = "Bunny";
 	object.LoadDataFromFile("assets/bunny.msh");
 	object.SetRot({ 3.14 * 0.5,0,0,1.f });

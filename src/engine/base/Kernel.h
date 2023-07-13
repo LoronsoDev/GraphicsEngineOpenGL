@@ -8,6 +8,7 @@
 #include <engine/base/Window.h>
 #include <scene/Camera.h>
 #include <scene/Light.h>
+#include <scene/Emitter.h>
 
 using namespace engine;
 
@@ -21,6 +22,8 @@ public:
 	static std::vector<Object*>* s_Objects;
 	static std::vector<Camera*>* s_Cameras;
 	static std::vector<Light*>* s_Lights;
+	static std::vector<Emitter*>* s_Emitters;
+
 	static inline glm::vec3 ambientLight = {0.2f, 0.2f, .2f};
 	
 	static bool s_End;

@@ -135,6 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\scene\Emitter.cpp" />
+    <ClCompile Include="src\scene\Particle.cpp" />
+    <ClCompile Include="src\scene\Billboard.cpp" />
     <ClCompile Include="src\scene\Light.cpp" />
     <ClCompile Include="src\engine\opengl\OpenGLImGUI.cpp" />
     <ClCompile Include="src\engine\utils\imgui\imgui.cpp" />
@@ -167,6 +170,9 @@
     <ClCompile Include="src\scene\Object3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene\Emitter.h" />
+    <ClInclude Include="src\scene\Particle.h" />
+    <ClInclude Include="src\scene\Billboard.h" />
     <ClInclude Include="src\scene\Light.h" />
     <ClInclude Include="src\engine\opengl\OpenGLImGUI.h" />
     <ClInclude Include="src\engine\base\UserInterface.h" />

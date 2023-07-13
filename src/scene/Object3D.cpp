@@ -30,7 +30,8 @@ void Object3D::LoadDataFromFile(std::string path)
 
 	pugi::xml_node buffersNode = doc.child("mesh").child("buffers");
 
-	if (result) std::cout << "Error reading provided file: " << path;
+	// This always gives error in .MSH files, but it's not necessarily true.
+	//if (result) std::cout << "Error reading provided file: " << path << "\n";
 
 	for (pugi::xml_node bufferNode = buffersNode.child("buffer");
 		bufferNode;
@@ -61,8 +62,45 @@ void Object3D::LoadDataFromFile(std::string path)
 				mat_color.a = listcolor[3];
 				mat->setColor(mat_color);
 			}
+			auto blendNode = matNode.child("blendMode");
+			if (blendNode)
+			{
+				std::string mode = blendNode.text().as_string();
+
+				if (mode == "alpha")
+				{
+					mat->setBlendMode(Material::BlendMode::ALPHA);
+				}
+				else if (mode == "add") //Can fail, not sure of how it's defined in the .MSH
+				{
+					mat->setBlendMode(Material::BlendMode::ADD);
+				}
+				else if (mode == "multiply") //Can fail, not sure of how it's defined in the .MSH
+				{
+					mat->setBlendMode(Material::BlendMode::MULTIPLY);
+				}
+			}
+			auto lightNode = matNode.child("light");
+			if (lightNode)
+			{
+				mat->setLighting(lightNode.text().as_bool());
+			}
+			else
+			{
+				mat->setLighting(false);
+			}
+			auto cullingNode = matNode.child("culling");
+			if (cullingNode)
+			{
+				mat->setCulling(cullingNode.text().as_bool());
+			}
+			auto depthWriteNode = matNode.child("depthWrite");
+			if (depthWriteNode)
+			{
+				mat->setDepthWrite(depthWriteNode.text().as_bool());
+			}
 			auto shininess = matNode.child("shininess");
-			if (shininess)
+			if (shininess && mat->getLighting())
 			{
 				float shine = shininess.text().as_float();
 				mat->setShininess(shine/sizeof(uint8_t));
@@ -85,6 +123,8 @@ void Object3D::LoadDataFromFile(std::string path)
 
 			if (vShaderNode && fShaderNode)
 			{
+				std::string vShaderPath = vShaderNode.text().as_string();
+				std::string fShaderPath = fShaderNode.text().as_string();
 				mat->loadPrograms(vShaderNode.text().as_string(), fShaderNode.text().as_string());
 				mesh->setMaterial(mat);
 			}

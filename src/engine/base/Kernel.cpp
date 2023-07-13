@@ -10,6 +10,7 @@ InputManager* Kernel::s_InputManager = nullptr;
 std::vector<Object*>* Kernel::s_Objects = nullptr;
 std::vector<Camera*>* Kernel::s_Cameras = nullptr;
 std::vector<Light*>* Kernel::s_Lights = nullptr;
+std::vector<Emitter*>* Kernel::s_Emitters = nullptr;
 
 bool Kernel::s_End = false;
 
@@ -25,6 +26,7 @@ void Kernel::Init()
 	s_Objects = new std::vector<Object*>();
 	s_Cameras = new std::vector<Camera*>();
 	s_Lights = new std::vector<Light*>();
+	s_Emitters = new std::vector<Emitter*>();
 }
 
 void Kernel::AddObject(Object* obj)

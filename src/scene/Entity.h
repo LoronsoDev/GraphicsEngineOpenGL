@@ -25,7 +25,7 @@ public:
 	inline void SetRot(glm::vec4 rot) { m_Rot = rot; }
 	inline void SetScale(glm::vec4 scale) { m_Scale = scale; }
 	inline void SetModelMatrix(glm::mat4 modelMatrix) { m_ModelMatrix = modelMatrix; }
-	void ComputeModelMatrix();
+	virtual void ComputeModelMatrix();
 	virtual void Step(float deltaTime) = 0;
 
 private:

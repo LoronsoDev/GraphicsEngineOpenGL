@@ -368,7 +368,11 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 				auto viewPos = m_MainCamera->GetPos();
 
 				p->setVec4("viewPos", glm::vec4(viewPos.x, viewPos.y, viewPos.z, 1.0f));
-				p->setFloat("shininess", m->getShininess());
+				if (m->getLighting())
+				{
+					//File might have shininess info but not need it.
+					p->setFloat("shininess", m->getShininess());
+				}
 				p->setVec3("ambient", *ambient);
 			}
 
