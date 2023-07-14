@@ -1,6 +1,5 @@
 #version 330
 
-
 in vec4 vPos;
 in vec2 vTextureUV;
 

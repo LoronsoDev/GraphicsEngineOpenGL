@@ -4,6 +4,7 @@
 			<material>
 				<vShader>shaders/texture2D_unlit.vert</vShader>
 				<fShader>shaders/texture2D_unlit.frag</fShader>
+				<color>1,1,1,1</color>
 				<texture>assets/b04f1d22.dds.jpg</texture>
 				<depthwrite>true</depthwrite>			
 			</material>

@@ -16,10 +16,19 @@ int main(int chargc, char** argv)
 
 	//CubeTex object;
 
-	Billboard object;
+	CameraKeyboard camera(
+		Camera::ProjectionType::PERSPECTIVE,
+		{ 0,1.f,3.f },
+		{ 0,1.f,0 },
+		{0.0, 0.0, 0.0},
+		Kernel::s_InputManager,
+		1.0f,
+		0.5f);
+
+	Object3D object;
 	object.name = "Bunny";
-	object.LoadDataFromFile("assets/bunny.msh");
-	object.SetRot({ 3.14 * 0.5,0,0,1.f });
+	object.LoadDataFromFile("assets/color_column.msh");
+	object.SetRot({ 0., glm::pi<float>(), 0., 1. });
 	object.SetScale({ 5,5,5,1 });
 
 	Object3D spotLightVisualizer;
@@ -34,14 +43,6 @@ int main(int chargc, char** argv)
 	orbitalLightVisualizer.LoadDataFromFile("assets/cube.msh");
 	orbitalLightVisualizer.SetScale(glm::vec4(0.1));
 
-	CameraKeyboard camera(
-		Camera::ProjectionType::PERSPECTIVE,
-		{ 0,1.f,3.f },
-		{ 0,1.f,0 },
-		object.GetPos(),
-		Kernel::s_InputManager,
-		1.0f,
-		0.5f);
 
 	Light dirLight(Light::LightType::DIRECTIONAL);
 	dirLight.name = "Directional Light";

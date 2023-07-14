@@ -105,8 +105,6 @@ void engine::OpenGL4Context::Init(Window* window)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-
 
 	std::cout << " OPENGL CONTEXT CREATED SUCCESFULLY \n";
 	std::cout << " CONTEXT RUNNING OPENGL4 \n";
@@ -189,7 +187,10 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 		bool depthBuffered = mat->getDepthWrite();
 
 		if (culled)
+		{
 			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+		}
 		else
 			glDisable(GL_CULL_FACE);
 
@@ -241,7 +242,6 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 			glVertexAttribPointer(program->shaderProgramVars["vTextureUV"], 2, GL_FLOAT, GL_FALSE,
 				sizeof(Vertex), (void*)offsetof(Vertex, textureUV));
 		}
-
 
 		glBindVertexArray(0);
 
@@ -306,10 +306,7 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 
 			obj->SetPos(l->position);
 			obj->SetRot(glm::vec4(l->direction.x, l->direction.y, l->direction.z, 1.0f));
-
 		}
-
-		
 		
 		numLight++;
 	}

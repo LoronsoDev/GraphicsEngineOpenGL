@@ -235,5 +235,7 @@
     <None Include="Shaders\texture2D_unlit.vert" />
     <None Include="Shaders\color_lit.vert" />
     <None Include="Shaders\color_lit.frag" />
+    <None Include="Shaders\texture2D_lit.vert" />
+    <None Include="Shaders\texture2D_lit.frag" />
   </ItemGroup>
 </Project>
