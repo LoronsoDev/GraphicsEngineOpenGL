@@ -19,6 +19,7 @@ namespace engine
 		// Inherited via GraphicsContext
 		virtual void Init(Window* window) override;
 		virtual void SwapBuffers() override;
+		virtual void ClearFlags() override {}
 
 	private:
 		GLFWwindow* m_ContextWindow = nullptr;
@@ -26,9 +27,11 @@ namespace engine
 		// Inherited via GraphicsContext
 		virtual void SetupCamera(Camera* cam, bool isMainCam = true) override {} //No cameras in GL1
 		virtual void SetupObject(Object* obj) override;
-		virtual void SetupLighting(std::vector<Light*>* lights, glm::vec3 * ambient) override;
+		virtual void SetupParticleEmitter(Emitter* emitter) override {};
+		virtual void SetupLighting(std::vector<Light*>* lights, glm::vec3* ambient) override;
 		virtual void RemoveObject(Object* obj) override;
 		virtual void DrawObjects(std::vector<Object*>* objs) override;
+		virtual void PostRender() override {};
 
 		// Inherited via GraphicsContext
 		virtual bool IsClosed() override;
@@ -52,23 +55,26 @@ namespace engine
 		std::map<int, VBO_t> bufferObjectList;
 
 		//LIGHTS
-		glm::vec3 * ambient = nullptr;
+		glm::vec3* ambient = nullptr;
 		std::vector<Light*>* lights;
-
+		std::vector<Emitter*>* emitters;
 
 		OpenGL4Context() { }
 
 		// Inherited via GraphicsContext
 		virtual void Init(Window* window) override;
 		virtual void SwapBuffers() override;
+		virtual void ClearFlags() override;
+		virtual void PostRender() override;
 
 	private:
 		GLFWwindow* m_ContextWindow = nullptr;
 
 		// Inherited via GraphicsContext
 		virtual void SetupObject(Object* obj) override;
+		virtual void SetupParticleEmitter(Emitter* emitter) override;
 		virtual void SetupCamera(Camera* cam, bool isMainCam = true) override;
-		virtual void SetupLighting(std::vector<Light*>* lights, glm::vec3 * ambient) override;
+		virtual void SetupLighting(std::vector<Light*>* lights, glm::vec3* ambient) override;
 		virtual void RemoveObject(Object* obj) override;
 		virtual void DrawObjects(std::vector<Object*>* objs) override;
 
@@ -76,5 +82,6 @@ namespace engine
 		virtual bool IsClosed() override;
 		virtual int GetWidth() override;
 		virtual int GetHeight() override;
+		
 	};
 }

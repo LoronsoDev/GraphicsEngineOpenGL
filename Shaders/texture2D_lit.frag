@@ -17,17 +17,17 @@ uniform Light lights[8];
 uniform int numLights;
 uniform sampler2D textureColor;
 
-out vec4 fragColor;
-
-in vec4 fPos;
-in vec4 fNormal;
-in vec4 fColor;
-in vec2 fTextureUV;
-
 uniform vec3 ambient;
 uniform float shininess;
 
 uniform vec4 viewPos;
+
+
+in vec4 fPos;
+in vec4 fNormal;
+in vec2 fTextureUV;
+
+out vec4 fragColor;
 
 void main()
 {
@@ -99,6 +99,6 @@ void main()
 		}
 	}
 
-	vec3 result = (ambient + cc_diff + cc_spec) * fColor.xyz;
+	vec3 result = (ambient + cc_diff + cc_spec);
 	fragColor = vec4(result, 1.0) * texture2D(textureColor, fTextureUV);
 }

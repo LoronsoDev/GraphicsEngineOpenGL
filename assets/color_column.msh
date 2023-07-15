@@ -17,6 +17,7 @@
 			<material>
 				<vShader>shaders/texture2D_unlit.vert</vShader>
 				<fShader>shaders/texture2D_unlit.frag</fShader>
+				<color>1,1,1,1</color>
 				<texture>assets/_5259538b.dds.jpg</texture>
 				<depthwrite>true</depthwrite>			
 			</material>
@@ -29,6 +30,7 @@
 			<material>
 				<vShader>shaders/texture2D_unlit.vert</vShader>
 				<fShader>shaders/texture2D_unlit.frag</fShader>
+				<color>1,1,1,1</color>
 				<texture>assets/_7ddf0ee9.dds.jpg</texture>
 				<depthwrite>true</depthwrite>			
 			</material>
@@ -41,6 +43,7 @@
 			<material>
 				<vShader>shaders/texture2D_unlit.vert</vShader>
 				<fShader>shaders/texture2D_unlit.frag</fShader>
+				<color>1,1,1,1</color>
 				<texture>assets/b3fd6310.dds.jpg</texture>
 				<depthwrite>true</depthwrite>			
 			</material>
@@ -53,6 +56,7 @@
 			<material>
 				<vShader>shaders/texture2D_unlit.vert</vShader>
 				<fShader>shaders/texture2D_unlit.frag</fShader>
+				<color>1,1,1,1</color>
 				<texture>assets/c7b38140.dds.jpg</texture>
 				<depthwrite>true</depthwrite>			
 			</material>
@@ -65,6 +69,7 @@
 			<material>
 				<vShader>shaders/texture2D_unlit.vert</vShader>
 				<fShader>shaders/texture2D_unlit.frag</fShader>
+				<color>1,1,1,1</color>
 				<texture>assets/c1d75c83.dds.jpg</texture>
 				<depthwrite>true</depthwrite>			
 			</material>

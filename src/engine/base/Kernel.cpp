@@ -49,6 +49,11 @@ void Kernel::AddLight(Light* light)
 	s_Lights->push_back(light);
 }
 
+void Kernel::AddEmitter(Emitter* emitter)
+{
+	s_Emitters->push_back(emitter);
+}
+
 
 void Kernel::Exit()
 {
@@ -58,6 +63,8 @@ void Kernel::Exit()
 	delete s_InputManager;
 	delete s_Objects;
 	delete s_Lights;
+	delete s_Cameras;
+	delete s_Emitters;
 }
 
 void Kernel::Execute()
@@ -67,7 +74,7 @@ void Kernel::Execute()
 	float lastTime = 0;
 
 	s_GraphicsContext->SetupLighting(s_Lights, &ambientLight);
-
+	
 	//Main update loop.
 	while (!s_End)
 	{
@@ -76,6 +83,7 @@ void Kernel::Execute()
 		lastTime = newTime;
 
 		s_Window->OnUpdate();
+
 
 		for(Camera* cam : *s_Cameras)
 		{
@@ -93,11 +101,27 @@ void Kernel::Execute()
 		{
 			l->step(deltaTime);
 		}
+		s_GraphicsContext->ClearFlags();
+
+		for(Emitter * e : *s_Emitters)
+		{
+			e->Step(deltaTime);
+			const auto pList = e->getParticleList();
+			std::vector<Object*> pList_to_vector(pList->begin(), pList->end());
+			for(Object * p : pList_to_vector)
+			{
+				s_GraphicsContext->SetupObject(p);
+			}
+			s_GraphicsContext->DrawObjects(&pList_to_vector);
+		}
 
 		s_GraphicsContext->DrawObjects(s_Objects);
 
+		s_GraphicsContext->PostRender();
+		s_GraphicsContext->SwapBuffers();
+
 		//END
 		if(!s_Window->m_WindowProperties.isRunning)
-		s_End = true;
+			s_End = true;
 	}
 }

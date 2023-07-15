@@ -15,7 +15,7 @@ class Object : public Entity
 public:
 	Object();
 
-	bool isVisualizer = false; //If this object is a visualizer, it's only in the scene for representation and it's managed by another entity.
+	bool isDynamicObject = false; //If this object is a visualizer, it's only in the scene for representation and it's managed by another entity.
 	std::vector<Mesh3D*> GetMeshes();
 	void AddMesh(Mesh3D* mesh);
 	unsigned int numMeshes = 0;

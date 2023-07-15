@@ -24,8 +24,8 @@ public:
 	static std::vector<Light*>* s_Lights;
 	static std::vector<Emitter*>* s_Emitters;
 
-	static inline glm::vec3 ambientLight = {0.2f, 0.2f, .2f};
-	
+	static inline glm::vec3 ambientLight = { 0.2f, 0.2f, .2f };
+
 	static bool s_End;
 
 	Kernel();
@@ -33,6 +33,7 @@ public:
 	static void AddObject(Object* obj);
 	static void AddCamera(Camera* cam);
 	static void AddLight(Light* light);
+	static void AddEmitter(Emitter* emitter);
 	static void Exit();
 	static void Execute();
 };

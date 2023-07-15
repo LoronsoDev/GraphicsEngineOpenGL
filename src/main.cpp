@@ -25,24 +25,32 @@ int main(int chargc, char** argv)
 		1.0f,
 		0.5f);
 
+	Emitter fireEmitter("assets/flame.msh", 10.f, true);
+	fireEmitter.setRateRange(10.f, 15.f);
+	fireEmitter.setVelocityRange({ -0.02, 0.1, -0.02 }, {0.02, 0.5, 0.02});
+	fireEmitter.setSpinVelocityRange(0, 0);
+	fireEmitter.setLifetimeRange(0.5, 0.5);
+	fireEmitter.setScaleRange(0.6f, 1.0f);
+	fireEmitter.SetPos({ 0.f, 2.f, 0.f });
+
+	Emitter smokeEmitter("assets/smoke.msh", 5.f, true);
+	smokeEmitter.setRateRange(5.f, 10.f);
+	smokeEmitter.setVelocityRange({ -0.1, 0.01, -0.1 }, { 0.1, 2, 0.1 });
+	smokeEmitter.setSpinVelocityRange(30, 60);
+	smokeEmitter.setLifetimeRange(1.5, 5.);
+	smokeEmitter.setScaleRange(0.6f, 1.0f);
+	smokeEmitter.SetPos({ 0.f, 2.f, 0.f });
+
 	Object3D object;
-	object.name = "Bunny";
-	object.LoadDataFromFile("assets/color_column.msh");
-	object.SetRot({ 0., glm::pi<float>(), 0., 1. });
-	object.SetScale({ 5,5,5,1 });
+	object.name = "Column";
+	object.LoadDataFromFile("assets/column.msh");
+	object.SetScale({ 0.003,0.003,0.003,1 });
 
 	Object3D spotLightVisualizer;
 	spotLightVisualizer.name = "Spot Light vis";
-	spotLightVisualizer.isVisualizer = true;
+	spotLightVisualizer.isDynamicObject = true;
 	spotLightVisualizer.LoadDataFromFile("assets/cube.msh");
 	spotLightVisualizer.SetScale(glm::vec4(0.1));
-
-	Object3D orbitalLightVisualizer;
-	orbitalLightVisualizer.name = "Orbital Light vis";
-	orbitalLightVisualizer.isVisualizer = true;
-	orbitalLightVisualizer.LoadDataFromFile("assets/cube.msh");
-	orbitalLightVisualizer.SetScale(glm::vec4(0.1));
-
 
 	Light dirLight(Light::LightType::DIRECTIONAL);
 	dirLight.name = "Directional Light";
@@ -57,21 +65,15 @@ int main(int chargc, char** argv)
 	pointLight.linearAttenuation = 0.7f;
 	pointLight.quadraticAttenuation = 1.8f;
 
-	OrbitalLight orbitalLight(Light::LightType::POINT, 1.f, {1.f, 0, 0});
-	orbitalLight.name = "Orbital Light";
-	orbitalLight.sceneVisualizer = &orbitalLightVisualizer;
-	orbitalLight.color = glm::vec3(0,1,0);
-	orbitalLight.specularColor = glm::vec3(1);
-	orbitalLight.intensity = 1.f;
-
 
 	Kernel::AddLight(&dirLight);
 	Kernel::AddLight(&pointLight);
-	Kernel::AddLight(&orbitalLight);
+
+	Kernel::AddEmitter(&fireEmitter);
+	Kernel::AddEmitter(&smokeEmitter);
 
 	Kernel::AddObject(reinterpret_cast<Object3D*>(&object));
 	Kernel::AddObject(reinterpret_cast<Object3D*>(&spotLightVisualizer));
-	Kernel::AddObject(reinterpret_cast<Object3D*>(&orbitalLightVisualizer));
 
 	Kernel::AddCamera(&camera);
 

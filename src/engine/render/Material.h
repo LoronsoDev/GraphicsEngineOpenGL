@@ -25,7 +25,8 @@ public:
 	bool isAffectedByLight = true;
 	bool isCulled = true;
 	bool hasDepthBuffer = true;
-
+	float alpha = 1.0f;
+	
 	inline void setProgram(RenderProgram* program)
 	{
 		this->program = program;

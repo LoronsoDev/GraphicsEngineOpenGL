@@ -62,6 +62,18 @@ void Object3D::LoadDataFromFile(std::string path)
 				mat_color.a = listcolor[3];
 				mat->setColor(mat_color);
 			}
+			else
+			{
+				// defaults color if there isn't one specified.
+				RGBA mat_color;
+				mat_color.r = 1.f;
+				mat_color.g = 1.f;
+				mat_color.b = 1.f;
+				mat_color.a = 1.f;
+
+				mat->setColor(mat_color);
+				mat->hasColor = false;
+			}
 			auto blendNode = matNode.child("blendMode");
 			if (blendNode)
 			{
@@ -104,18 +116,6 @@ void Object3D::LoadDataFromFile(std::string path)
 			{
 				float shine = shininess.text().as_float();
 				mat->setShininess(shine/sizeof(uint8_t));
-			}
-			else
-			{
-				// defaults color if there isn't one specified.
-				RGBA mat_color;
-				mat_color.r = 0.f;
-				mat_color.g = 0.f;
-				mat_color.b = 0.f;
-				mat_color.a = 0.f;
-
-				mat->setColor(mat_color);
-				mat->hasColor = false;
 			}
 
 			auto vShaderNode = matNode.child("vShader");

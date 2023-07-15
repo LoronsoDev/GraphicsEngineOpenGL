@@ -29,7 +29,7 @@ void engine::OpenGL1Context::SetupObject(Object* obj)
 	std::cout << "OpenGL1Context::SetupObject not implemented \n";
 }
 
-void engine::OpenGL1Context::SetupLighting(std::vector<Light*>* lights, glm::vec3 * ambient)
+void engine::OpenGL1Context::SetupLighting(std::vector<Light*>* lights, glm::vec3* ambient)
 {
 	std::cout << "OpenGL1Context::SetupLighting not implemented \n";
 }
@@ -42,12 +42,12 @@ void engine::OpenGL1Context::RemoveObject(Object* obj)
 void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	glBegin(GL_TRIANGLES);
 
-	for (const auto & obj : *objs)
+	for (const auto& obj : *objs)
 	{
-		for(auto mesh : obj->GetMeshes())
+		for (auto mesh : obj->GetMeshes())
 		{
 			const auto vertices = mesh->GetVertList();
 
@@ -60,7 +60,6 @@ void engine::OpenGL1Context::DrawObjects(std::vector<Object*>* objs)
 				glVertex3f(v.pos.x, v.pos.y, v.pos.z);
 			}
 		}
-		
 	}
 
 	glEnd();
@@ -92,7 +91,7 @@ int engine::OpenGL1Context::GetHeight()
 void engine::OpenGL4Context::Init(Window* window)
 {
 	m_RenderWindow = window;
-	m_ContextWindow = (GLFWwindow*) window->GetNativeWindow();
+	m_ContextWindow = (GLFWwindow*)window->GetNativeWindow();
 
 	glfwMakeContextCurrent(m_ContextWindow);
 	gladLoadGL(glfwGetProcAddress);
@@ -101,10 +100,12 @@ void engine::OpenGL4Context::Init(Window* window)
 	UI = std::make_unique<OpenGLImGUI>(OpenGLImGUI());
 	UI->CreateContext(window);
 	UI->Init();
-	
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
+
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	std::cout << " OPENGL CONTEXT CREATED SUCCESFULLY \n";
 	std::cout << " CONTEXT RUNNING OPENGL4 \n";
@@ -118,20 +119,31 @@ void engine::OpenGL4Context::SwapBuffers()
 	glfwSwapBuffers(m_ContextWindow);
 }
 
+void engine::OpenGL4Context::ClearFlags()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void engine::OpenGL4Context::PostRender()
+{
+	UI->Update();
+	UI->Render();
+}
+
 void engine::OpenGL4Context::SetupCamera(Camera* cam, bool isMainCam)
 {
 	cam->computeViewMatrix();
 
-	if(isMainCam)
+	if (isMainCam)
 		m_MainCamera = cam;
 }
 
-void engine::OpenGL4Context::SetupLighting(std::vector<Light*>* lights, glm::vec3 * ambient)
+void engine::OpenGL4Context::SetupLighting(std::vector<Light*>* lights, glm::vec3* ambient)
 {
 	this->ambient = ambient;
 	this->lights = lights;
 
-	for(Light * l : *lights)
+	for (Light* l : *lights)
 	{
 		OpenGLImGUI::ModifiableIngameItem* uiItem = new OpenGLImGUI::ModifiableIngameItem;
 		uiItem->item_type_id = l->name;
@@ -147,7 +159,7 @@ void engine::OpenGL4Context::SetupLighting(std::vector<Light*>* lights, glm::vec
 
 void engine::OpenGL4Context::SetupObject(Object* obj)
 {
-	if (!obj->isVisualizer)
+	if (!obj->isDynamicObject)
 	{
 		OpenGLImGUI::ModifiableIngameItem* uiItem = new OpenGLImGUI::ModifiableIngameItem;
 		uiItem->item_type_id = obj->name;
@@ -158,8 +170,7 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 		UI->sceneObjects.push_back(uiItem);
 	}
 
-
-	for(const auto & mesh : obj->GetMeshes())
+	for (const auto& mesh : obj->GetMeshes())
 	{
 		Material* mat = mesh->getMaterial();
 		mat->prepare();
@@ -169,37 +180,6 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 
 		Texture* texture = mat->getTexture();
 		RGBA color = mat->getColor();
-
-		switch(mat->getBlendMode())
-		{
-			case Material::BlendMode::ADD:
-				glBlendFunc(GL_ONE, GL_ONE);
-				break;
-			case Material::BlendMode::ALPHA:
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				break;
-			case Material::BlendMode::MULTIPLY:
-				glBlendFunc(GL_DST_COLOR, GL_ZERO);
-				break;
-		}
-
-		bool culled = mat->getCulling();
-		bool depthBuffered = mat->getDepthWrite();
-
-		if (culled)
-		{
-			glEnable(GL_CULL_FACE);
-			glCullFace(GL_BACK);
-		}
-		else
-			glDisable(GL_CULL_FACE);
-
-		if (depthBuffered)
-			glDepthMask(GL_TRUE);
-		else
-			glDepthMask(GL_FALSE);
-		
-
 
 		glGenVertexArrays(1, &vbo.boId);
 		glGenBuffers(1, &vbo.vbo);
@@ -226,10 +206,9 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 			glEnableVertexAttribArray(program->shaderProgramVars["vColor"]);
 			glVertexAttribPointer(program->shaderProgramVars["vColor"], 4, GL_FLOAT, GL_FALSE,
 				sizeof(Vertex), (void*)offsetof(Vertex, color));
-
 		}
 
-		if(mat->isAffectedByLight)
+		if (mat->isAffectedByLight)
 		{
 			glEnableVertexAttribArray(program->shaderProgramVars["vNormal"]);
 			glVertexAttribPointer(program->shaderProgramVars["vNormal"], 4, GL_FLOAT, GL_FALSE,
@@ -252,19 +231,20 @@ void engine::OpenGL4Context::SetupObject(Object* obj)
 			texture->Bind(0);
 		}
 	}
-	
+}
+
+void engine::OpenGL4Context::SetupParticleEmitter(Emitter* emitter)
+{
+	emitters->push_back(emitter);
 }
 
 void engine::OpenGL4Context::RemoveObject(Object* obj)
 {
-
 }
 
 void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	UI->Update();
 
 	int numLight = 0;
 	for (auto& l : *lights)
@@ -285,12 +265,10 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 				l->intensity = UI->sceneLights[numLight]->userScale.z;
 				l->color = UI->sceneLights[numLight]->auxValues;
 				l->specularColor = UI->sceneLights[numLight]->auxValues;
-
 			}
 
 			continue;
 		}
-
 
 		l->position = UI->sceneLights[numLight]->userPos;
 		l->direction = UI->sceneLights[numLight]->userRot;
@@ -307,14 +285,14 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 			obj->SetPos(l->position);
 			obj->SetRot(glm::vec4(l->direction.x, l->direction.y, l->direction.z, 1.0f));
 		}
-		
+
 		numLight++;
 	}
 
 	int numObject = 0;
-	for(auto & obj: *objs)
+	for (auto& obj : *objs)
 	{
-		if(!obj->isVisualizer)
+		if (!obj->isDynamicObject)
 		{
 			obj->SetPos(UI->sceneObjects[numObject]->userPos);
 			obj->SetRot(UI->sceneObjects[numObject]->userRot);
@@ -322,28 +300,67 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 
 			numObject++;
 		}
-		
+
 		//obj->LoadDataFromFile(UI->userPath);
 
-		for(auto & mesh : obj->GetMeshes())
+		for (auto& mesh : obj->GetMeshes())
 		{
 			auto vbo = bufferObjectList[mesh->GetMeshID()];
 
 			Material* m = mesh->getMaterial();
 			RenderProgram* p = m->getProgram();
 
-			p->use();
+			switch (m->getBlendMode())
+			{
+			case Material::BlendMode::ADD:
+				glBlendFunc(GL_ONE, GL_ONE);
+				break;
+			case Material::BlendMode::ALPHA:
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				break;
+			case Material::BlendMode::MULTIPLY:
+				glBlendFunc(GL_DST_COLOR, GL_ZERO);
+				break;
+
+			default:
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			}
 			
+			bool culled = m->getCulling();
+			bool depthBuffered = m->getDepthWrite();
+
+			if (culled)
+			{
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_BACK);
+			}
+			else
+				glDisable(GL_CULL_FACE);
+
+			if (depthBuffered)
+			{
+				glDepthMask(GL_TRUE);
+			}
+			else
+			{
+				glDepthMask(GL_FALSE);
+			}
+
+
+			p->use();
+
 			glm::mat4 MVP = m_MainCamera->getProjection() * m_MainCamera->getView() * obj->GetModelMatrix();
 
 			p->setMat4("MVP", MVP);
-			if(mesh->getMaterial()->isAffectedByLight)
+			p->setFloat("alpha", m->alpha);
+
+			if (mesh->getMaterial()->isAffectedByLight)
 			{
 				p->setMat4("M", obj->GetModelMatrix()); //Necessary for normals computation
 
-				for(int i = 0; i < lights->size(); ++i)
+				for (int i = 0; i < lights->size(); ++i)
 				{
-					Light * light = (*lights)[i];
+					Light* light = (*lights)[i];
 					int type = static_cast<int>(light->getType());
 					glm::vec3 col = light->getColor();
 					glm::vec4 color = glm::vec4(col.r, col.g, col.b, 1.f);
@@ -353,12 +370,12 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 					std::string light_str = "lights[" + std::to_string(i) + "]";
 
 					p->setFloat(light_str + (".intensity"), light->intensity);
-					p->setInt(light_str		+ (".type"), type);
-					p->setVec4(light_str	+ (".color"), color);
+					p->setInt(light_str + (".type"), type);
+					p->setVec4(light_str + (".color"), color);
 					p->setFloat(light_str + (".quadraticAttenuation"), light->quadraticAttenuation);
-					p->setFloat(light_str	+ (".linearAttenuation"), linAtt);
-					p->setVec3(light_str	+ (".position"), light->position);
-					p->setVec3(light_str	+ (".direction"), glm::normalize(- light->direction));
+					p->setFloat(light_str + (".linearAttenuation"), linAtt);
+					p->setVec3(light_str + (".position"), light->position);
+					p->setVec3(light_str + (".direction"), glm::normalize(-light->direction));
 					p->setVec3(light_str + (".specularColor"), light->specularColor);
 				}
 
@@ -377,7 +394,7 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 			//dibujado
 			glBindVertexArray(vbo.boId);
 
-			if(texture)
+			if (texture)
 			{
 				texture->Bind(0);
 			}
@@ -385,20 +402,13 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 			glDrawElements(GL_TRIANGLES, mesh->GetIdBufferList()->size(),
 				GL_UNSIGNED_INT, nullptr);
 
-			if(texture)
+			if (texture)
 			{
 				texture->Unbind();
 			}
 			glBindVertexArray(0);
 		}
 	}
-
-	UI->Render();
-
-	glEnd();
-
-	SwapBuffers();
-	
 }
 
 bool engine::OpenGL4Context::IsClosed()

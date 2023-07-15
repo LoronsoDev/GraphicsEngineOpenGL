@@ -9,7 +9,7 @@ void GLTexture::Load()
 	//
 
 	//stbi_set_flip_vertically_on_load(true);
-	RGBA * image = (RGBA*) stbi_load(texturePath.c_str(), &size.x, &size.y, &channels, 4);
+	RGBA* image = (RGBA*)stbi_load(texturePath.c_str(), &size.x, &size.y, &channels, 4);
 
 	if (!image) std::cout << "ENGINE ERROR: The texture path couldn't be read.";
 
@@ -29,7 +29,6 @@ void GLTexture::Load()
 
 void GLTexture::Bind(unsigned int textureUnit)
 {
-
 	glActiveTexture(GL_TEXTURE0 + textureUnit);
 
 	switch (textureType)
@@ -42,11 +41,9 @@ void GLTexture::Bind(unsigned int textureUnit)
 		glBindTexture(GL_TEXTURE_CUBE_MAP, ID);
 		break;
 	}
-
 }
 
 void GLTexture::Unbind()
 {
 	glActiveTexture(GL_TEXTURE0);
 }
-

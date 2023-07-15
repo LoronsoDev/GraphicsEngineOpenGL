@@ -17,4 +17,3 @@ public:
 	virtual void Step(float deltaTime) override;
 	virtual void ComputeModelMatrix() override;
 };
-
