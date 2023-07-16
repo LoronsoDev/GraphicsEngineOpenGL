@@ -244,8 +244,6 @@ void engine::OpenGL4Context::RemoveObject(Object* obj)
 
 void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 {
-	
-
 	int numLight = 0;
 	for (auto& l : *lights)
 	{
@@ -345,7 +343,6 @@ void engine::OpenGL4Context::DrawObjects(std::vector<Object*>* objs)
 			{
 				glDepthMask(GL_FALSE);
 			}
-
 
 			p->use();
 

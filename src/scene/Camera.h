@@ -72,3 +72,26 @@ public:
 public:
 	void Step(float timestep) override;
 };
+
+class CameraOrbital : public Camera
+{
+private:
+	float currentAngle = 0.f;
+
+public:
+	glm::vec3 radius = glm::vec3(3.f, 0.f, 0.f);
+	float speed = 2.5f;
+
+	CameraOrbital(ProjectionType projectionType, glm::vec3 position, glm::vec3 up,
+		glm::vec3 lookAt,
+		float speed = 2.5f ):
+	Camera(projectionType, position, up, lookAt),
+	speed(speed)
+	{
+		this->SetPos(position);
+	};
+
+
+public:
+	void Step(float timestep) override;
+};

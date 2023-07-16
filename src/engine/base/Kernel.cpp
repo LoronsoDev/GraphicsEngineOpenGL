@@ -110,7 +110,7 @@ void Kernel::Execute()
 			std::vector<Object*> pList_to_vector(pList->begin(), pList->end());
 			for(Object * p : pList_to_vector)
 			{
-				s_GraphicsContext->SetupObject(p);
+				s_GraphicsContext->SetupObject(p); //TODO: Memleak is here.
 			}
 			s_GraphicsContext->DrawObjects(&pList_to_vector);
 		}

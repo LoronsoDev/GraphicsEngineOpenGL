@@ -14,16 +14,22 @@ int main(int chargc, char** argv)
 
 	Kernel::Init();
 
-	//CubeTex object;
-
-	CameraKeyboard camera(
+	/*CameraKeyboard camera(
 		Camera::ProjectionType::PERSPECTIVE,
 		{ 0,1.f,3.f },
 		{ 0,1.f,0 },
 		{0.0, 0.0, 0.0},
 		Kernel::s_InputManager,
 		1.0f,
-		0.5f);
+		0.5f);*/
+
+	CameraOrbital camera(
+		Camera::ProjectionType::PERSPECTIVE,
+		{ 0,1.f,3.f },
+		{ 0,1.f,0 },
+		{ 0.0, 0.0, 0.0 },
+		1.0f);
+	camera.radius = { 5., 1.5, 0.0 };
 
 	Emitter fireEmitter("assets/flame.msh", 10.f, true);
 	fireEmitter.setRateRange(10.f, 15.f);
@@ -46,34 +52,53 @@ int main(int chargc, char** argv)
 	object.LoadDataFromFile("assets/column.msh");
 	object.SetScale({ 0.003,0.003,0.003,1 });
 
-	Object3D spotLightVisualizer;
-	spotLightVisualizer.name = "Spot Light vis";
-	spotLightVisualizer.isDynamicObject = true;
-	spotLightVisualizer.LoadDataFromFile("assets/cube.msh");
-	spotLightVisualizer.SetScale(glm::vec4(0.1));
+	//Light dirLight(Light::LightType::DIRECTIONAL);
+	//dirLight.name = "Directional Light";
+	//dirLight.direction = { 0.f, -1.f, 0.f };
 
-	Light dirLight(Light::LightType::DIRECTIONAL);
-	dirLight.name = "Directional Light";
-	dirLight.direction = { 0.f, -1.f, 0.f };
+	CubeTex pointLightVisualizer;
+	pointLightVisualizer.name = "PL1 vis";
+	pointLightVisualizer.isDynamicObject = true;
+	pointLightVisualizer.LoadDataFromFile("assets/cube.msh");
+	pointLightVisualizer.SetScale(glm::vec4(0.1));
+
+	Object3D pointLightVisualizer_2;
+	pointLightVisualizer_2.name = "PL2 vis";
+	pointLightVisualizer_2.isDynamicObject = true;
+	pointLightVisualizer_2.LoadDataFromFile("assets/cube.msh");
+	pointLightVisualizer_2.SetScale(glm::vec4(0.1));
 
 	Light pointLight(Light::LightType::POINT);
 	pointLight.name = "Point Light";
-	pointLight.sceneVisualizer = &spotLightVisualizer;
+	pointLight.sceneVisualizer = &pointLightVisualizer;
 	pointLight.specularColor = { 1, 0, 0 };
 	pointLight.color = { 1, 0, 0 };
-	pointLight.position = { 3,0,0 };
-	pointLight.linearAttenuation = 0.7f;
-	pointLight.quadraticAttenuation = 1.8f;
+	pointLight.position = { 1,-1 , 6 };
+	pointLight.intensity = 7.5f;
+	pointLight.linearAttenuation = 0.2f;
+	pointLight.quadraticAttenuation = 0.3f;
+
+	Light pointLight_2(Light::LightType::POINT);
+	pointLight_2.name = "Point Light 2";
+	pointLight_2.sceneVisualizer = &pointLightVisualizer_2;
+	pointLight_2.specularColor = { 0, 1, 0 };
+	pointLight_2.color = { 0, 1, 0 };
+	pointLight_2.position = { -1,2,-1 };
+	pointLight_2.intensity = 4.5f;
+	pointLight_2.linearAttenuation = 0.2f;
+	pointLight_2.quadraticAttenuation = 0.3f;
 
 
-	Kernel::AddLight(&dirLight);
+	//Kernel::AddLight(&dirLight);
 	Kernel::AddLight(&pointLight);
+	Kernel::AddLight(&pointLight_2);
 
 	Kernel::AddEmitter(&fireEmitter);
 	Kernel::AddEmitter(&smokeEmitter);
 
 	Kernel::AddObject(reinterpret_cast<Object3D*>(&object));
-	Kernel::AddObject(reinterpret_cast<Object3D*>(&spotLightVisualizer));
+	Kernel::AddObject(reinterpret_cast<Object3D*>(&pointLightVisualizer));
+	Kernel::AddObject(reinterpret_cast<Object3D*>(&pointLightVisualizer_2));
 
 	Kernel::AddCamera(&camera);
 

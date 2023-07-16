@@ -58,14 +58,17 @@ void main()
 				diff = max(dot(norm, lightDir), 0.0);
 				diffuse = diff * lights[i].color.xyz;
 
-				viewDir = vec3(normalize(viewPos - fPos));
-				reflectDir = vec3(reflect(-lightDir, norm));  
-				spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-				specular = spec * lights[i].specularColor.xyz;
-
 				cc_diff += diffuse * lights[i].intensity;
-				cc_spec += specular * lights[i].intensity;
 
+				if(shininess > 0)
+				{
+					viewDir = vec3(normalize(viewPos - fPos));
+					reflectDir = vec3(reflect(-lightDir, norm));  
+					spec = pow(max(dot(viewDir, reflectDir), 0.0), 255);
+					specular = spec * lights[i].specularColor.xyz;
+					cc_spec += specular * lights[i].intensity;
+				}
+				
 				break;
 			case 1:		//POINT
 
@@ -78,17 +81,20 @@ void main()
 				diff = max(dot(norm, lightDir), 0.0);
 				diffuse = diff * lights[i].color.xyz;
 
-				viewDir = vec3(normalize(viewPos - fPos));
-				reflectDir = vec3(reflect(-lightDir, norm));  
-				spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-				specular = spec * lights[i].specularColor.xyz;
 
 				diffuse *= attenuation;
-				specular *= attenuation;
-
 				cc_diff += diffuse * lights[i].intensity;
-				cc_spec += specular * lights[i].intensity;
 
+				if(shininess > 0)
+				{
+					viewDir = vec3(normalize(viewPos - fPos));
+					reflectDir = vec3(reflect(-lightDir, norm));  
+					spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+					specular = spec * lights[i].specularColor.xyz;
+					cc_spec += specular * lights[i].intensity;
+					specular *= attenuation;
+				}
+				
 				break;
 			case 2:		//SPOT
 
@@ -100,5 +106,5 @@ void main()
 	}
 
 	vec3 result = (ambient + cc_diff + cc_spec);
-	fragColor = vec4(result, 1.0) * texture2D(textureColor, fTextureUV);
+	fragColor = texture2D(textureColor, fTextureUV) * vec4(result, 1.0);
 }
