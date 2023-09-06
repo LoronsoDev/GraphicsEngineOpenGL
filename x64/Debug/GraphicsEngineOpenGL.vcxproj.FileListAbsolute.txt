@@ -1,1 +1,2 @@
 C:\Proyectos\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe
+C:\Proyectos\tests_github\GraphicsEngineOpenGL\x64\Debug\GraphicsEngineOpenGL.exe

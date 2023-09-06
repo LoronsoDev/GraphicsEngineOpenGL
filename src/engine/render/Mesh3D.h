@@ -14,6 +14,8 @@ public:
 	inline void AddVertex(Vertex v) { m_VertexBuffer->push_back(v); }
 	inline VertexBuffer* GetVertList() { return m_VertexBuffer; }
 	inline VertexIdBuffer* GetIdBufferList() { return vTriangleIdxList; }
+	inline void SetVertList(VertexBuffer* otherVB) { m_VertexBuffer = otherVB; }
+	inline void SetIdBufferList(VertexIdBuffer* otherVIB) { vTriangleIdxList = otherVIB; }
 	inline glm::vec3 GetMeshColor() { return m_ColorRGB; }
 	inline Material* getMaterial() { return this->mat; }
 	inline void setMaterial(Material* mat) { this->mat = mat; }

@@ -14,10 +14,28 @@ void Camera::computeViewMatrix()
 
 void CameraKeyboard::Step(float timestep)
 {
+	if (input->isUIInput) return;
+
+	static bool firstControl = false;
+	if (!input->GetKeyState(GLFW_MOUSE_BUTTON_1))
+	{
+		firstControl = true;
+		return;
+	}
+
 	float cameraMovementSpeedMultiplier = 2;
 
-	static float prevYaw = input->mousePosX;
-	static float prevPitch = input->mousePosY;
+
+	static float prevYaw;
+	static float prevPitch;
+
+
+	if (firstControl)
+	{
+		prevYaw = input->mousePosX;
+		prevPitch = input->mousePosY;
+		firstControl = false;
+	}
 
 	//mouse velocities
 	float yaw = prevYaw - input->mousePosX;
@@ -56,10 +74,10 @@ void CameraKeyboard::Step(float timestep)
 	if (input->GetKeyState(GLFW_KEY_LEFT_SHIFT)) finalSpeed *= cameraMovementSpeedMultiplier;
 	else finalSpeed *= 1/cameraMovementSpeedMultiplier;
 
-	if (input->GetKeyState(GLFW_KEY_A)) SetPos(GetPos() - glm::cross(dir, up) * finalSpeed);
-	if (input->GetKeyState(GLFW_KEY_D)) SetPos(GetPos() + glm::cross(dir, up) * finalSpeed);
-	if (input->GetKeyState(GLFW_KEY_W)) SetPos(GetPos() + dir * finalSpeed);
-	if (input->GetKeyState(GLFW_KEY_S)) SetPos(GetPos() - dir * finalSpeed);
+	if (input->GetKeyState(GLFW_KEY_A)) SetPos(GetPos() - glm::cross(dir, up) * finalSpeed * timestep);
+	if (input->GetKeyState(GLFW_KEY_D)) SetPos(GetPos() + glm::cross(dir, up) * finalSpeed * timestep);
+	if (input->GetKeyState(GLFW_KEY_W)) SetPos(GetPos() + dir * finalSpeed * timestep);
+	if (input->GetKeyState(GLFW_KEY_S)) SetPos(GetPos() - dir * finalSpeed * timestep);
 
 	computeViewMatrix();
 }

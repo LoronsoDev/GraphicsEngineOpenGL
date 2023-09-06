@@ -6,7 +6,7 @@
 #include <engine/base/GraphicsContext.h>
 #include <engine/opengl/GLSLMaterial.h>
 #include <scene/Camera.h>
-
+#include <engine/opengl/OpenGLImGUI.h>
 #include <map>
 
 namespace engine
@@ -26,6 +26,7 @@ namespace engine
 		// Inherited via GraphicsContext
 		virtual void SetupCamera(Camera* cam, bool isMainCam = true) override {} //No cameras in GL1
 		virtual void SetupObject(Object* obj) override;
+		virtual void SetupLighting(std::vector<Light*>* lights, glm::vec3 * ambient) override;
 		virtual void RemoveObject(Object* obj) override;
 		virtual void DrawObjects(std::vector<Object*>* objs) override;
 
@@ -46,7 +47,15 @@ namespace engine
 
 		VBO_t vbo;
 
+		std::unique_ptr<OpenGLImGUI> UI = nullptr;
+
 		std::map<int, VBO_t> bufferObjectList;
+
+		//LIGHTS
+		glm::vec3 * ambient = nullptr;
+		std::vector<Light*>* lights;
+
+
 		OpenGL4Context() { }
 
 		// Inherited via GraphicsContext
@@ -57,8 +66,9 @@ namespace engine
 		GLFWwindow* m_ContextWindow = nullptr;
 
 		// Inherited via GraphicsContext
-		virtual void SetupCamera(Camera* cam, bool isMainCam = true) override;
 		virtual void SetupObject(Object* obj) override;
+		virtual void SetupCamera(Camera* cam, bool isMainCam = true) override;
+		virtual void SetupLighting(std::vector<Light*>* lights, glm::vec3 * ambient) override;
 		virtual void RemoveObject(Object* obj) override;
 		virtual void DrawObjects(std::vector<Object*>* objs) override;
 
